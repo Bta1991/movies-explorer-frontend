@@ -1,4 +1,3 @@
-// export const BASE_URL = 'https://api.aaa.nomoredomainsicu.ru'
 import { API_URL, API_OPTIONS } from './apiConfig'
 
 function handleResponse(res) {

@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import Card from './Card'
 import CurrentUserContext from '../contexts/CurrentUserContext'
 
-function Main({
+function Movies ({
     onEditAvatar,
     onEditProfile,
     onAddPlace,
@@ -31,7 +31,7 @@ function Main({
     }
 
     return (
-        <main className="main">
+        <main className="movies">
             <section className="profile">
                 <div className="profile__avatar-area">
                     <img
@@ -70,4 +70,4 @@ function Main({
     )
 }
 
-export default Main
+export default Movies

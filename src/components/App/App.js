@@ -2,8 +2,9 @@ import './App.css';
 
 import React, { useState, useEffect, useCallback } from 'react'
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
-import Header from '../Header'
-import Main from '../Main'
+import Header from '../Header/Header'
+// import Main from '../Main'
+import Movies from '../Movies'
 import Footer from '../Footer/Footer'
 import Login from '../Login'
 import Register from '../Register'
@@ -192,7 +193,7 @@ function App() {
                         path="/"
                         element={
                             <ProtectedRoute
-                                element={Main}
+                                element={Movies}
                                 isLoggedIn={isLoggedIn}
                                 onEditProfile={handleEditProfileClick}
                                 onAddPlace={handleAddPlaceClick}
