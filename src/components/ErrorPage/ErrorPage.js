@@ -1,6 +1,6 @@
 import './ErrorPage.css';
 
-function ErrorPage() {
+const ErrorPage = () => {
     return (
         <footer className="footer">
             <p className="footer__copyright">

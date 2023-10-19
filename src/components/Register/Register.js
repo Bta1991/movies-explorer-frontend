@@ -1,6 +1,7 @@
+import './Register.css';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { register } from '../utils/Auth'
+import { register } from '../../utils/Auth'
 
 const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
     const [values, setFormValue] = useState({

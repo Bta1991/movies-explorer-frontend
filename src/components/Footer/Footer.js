@@ -1,11 +1,46 @@
-import './Footer.css';
+import './Footer.css'
+import { useLocation } from 'react-router-dom'
 
-function Footer() {
+const Footer = () => {
+    const path = useLocation().pathname
+    const classLocal =
+        path === '/' || path === '/movies' || path === '/saved-movies'
+            ? ''
+            : 'footer_hidden'
+
     return (
         <footer className="footer">
-            <p className="footer__copyright">
-                &copy;2023 Tanya B. проект Mesto
-            </p>
+            {/* <footer className={"footer " + classLocal}> */}
+            <div className="container">
+                <p className="footer__info">
+                    Учебный проект Яндекс.Практикум х BeatFilm.
+                </p>
+                <div className="footer__bottom">
+                    <p className="footer__copyright">&copy;2023</p>
+                    <ul className="footer__list">
+                        <li>
+                            <a
+                                className="footer__link"
+                                target="_blank"
+                                rel="noreferrer"
+                                href="https://practicum.yandex.ru"
+                            >
+                                Яндекс.Практикум
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                className="footer__link"
+                                target="_blank"
+                                rel="noreferrer"
+                                href="https://github.com/Bta1991"
+                            >
+                                Github
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </footer>
     )
 }
