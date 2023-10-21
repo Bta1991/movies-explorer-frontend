@@ -1,4 +1,4 @@
-import './Register.css';
+import './Register.css'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { register } from '../../utils/Auth'
@@ -22,10 +22,10 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
     const [errorMessage, setErrorMessage] = useState('')
 
     const handleSubmit = (e) => {
-        const { email, password, confirmPassword } = values
+        const { name, email, password, confirmPassword } = values
 
         e.preventDefault()
-        if (!email || !password || !confirmPassword) {
+        if (!name || !email || !password || !confirmPassword) {
             setErrorMessage('Заполните все поля!')
             return
         }
@@ -35,7 +35,7 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
         }
         register(email, password)
             .then((data) => {
-                navigate('/sign-in')
+                navigate('/signin')
                 handleStatus(true)
                 handleTooltip(true)
                 handeTextTooltip('Вы успешно зарегистрировались!')
@@ -48,12 +48,22 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
     }
 
     return (
-        <div className="authorization">
-            <h2 className="authorization__header">Регистрация</h2>
-            <form className="authorization__form" onSubmit={handleSubmit}>
+        <div className="register">
+            <h2 className="register__header">Добро пожаловать!</h2>
+            <form className="register__form" onSubmit={handleSubmit}>
                 <input
                     required
-                    className="authorization__input"
+                    className="register__input"
+                    id="name"
+                    name="name"
+                    type="name"
+                    placeholder="Имя"
+                    value={values.name}
+                    onChange={handleChange}
+                />
+                <input
+                    required
+                    className="register__input"
                     id="email"
                     name="email"
                     type="email"
@@ -63,7 +73,7 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
                 />
                 <input
                     required
-                    className="authorization__input"
+                    className="register__input"
                     id="password"
                     name="password"
                     type="password"
@@ -74,7 +84,7 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
                 {/* добавлено подтверждение пароля */}
                 <input
                     required
-                    className="authorization__input authorization__input-smallgap"
+                    className="register__input register__input-smallgap"
                     id="confirmPassword"
                     name="confirmPassword"
                     type="password"
@@ -83,13 +93,16 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
                     onChange={handleChange}
                 />
 
-                <button type="submit" className="authorization__button">
+                <button type="submit" className="register__button">
                     {errorMessage || 'Зарегистрироваться'}
                 </button>
 
-                <Link to="/sign-in" className="authorization__link">
-                    Уже зарегистрированы? Войти
-                </Link>
+                <div className="register__link-area">
+                    <p className="register__link-text">Уже зарегистрированы?</p>
+                    <Link to="/signin" className="register__link">
+                        Войти
+                    </Link>
+                </div>
             </form>
         </div>
     )

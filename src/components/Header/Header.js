@@ -1,10 +1,10 @@
 import './Header.css';
 import { useLocation } from 'react-router-dom';
 import Logo from './Logo/Logo';
-import NavSigh from './NavSign/NavSign';
+import NavSign from './NavSign/NavSign';
 import NavBar from './NavBar/NavBar';
 
-const Header = ({ loggedIn }) => {
+const Header = ({ isLoggedIn }) => {
   const path = useLocation().pathname;
 
   const classLocal = path === '/' ? 'header_type_landing'
@@ -16,7 +16,7 @@ const Header = ({ loggedIn }) => {
       <div className="container">
         <div className="header__container">
           <Logo />
-          {!loggedIn ? <NavSigh /> : <NavBar path={path} />}
+          {!isLoggedIn ? <NavSign /> : <NavBar path={path} />}
         </div>
       </div>
     </header>
