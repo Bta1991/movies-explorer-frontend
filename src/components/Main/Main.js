@@ -1,17 +1,16 @@
-import './Main.css'
-import { useLocation } from 'react-router-dom'
+import Promo from './Promo/Promo'
+import AboutProject from './AboutProject/AboutProject'
+import Techs from './Techs/Techs'
+import AboutMe from "./AboutMe/AboutMe";
 
 const Main = () => {
-    const path = useLocation().pathname
-
     return (
-        <header className={'header '}>
-            <div className="container">
-                <div className="header__container">
-                    <p>заглушка сайта</p>
-                </div>
-            </div>
-        </header>
+        <main>
+            <Promo />
+            <AboutProject />
+            <Techs />
+            <AboutMe />
+        </main>
     )
 }
 
