@@ -12,41 +12,58 @@ import ProtectedRoute from '../ProtectedRoute'
 import ErrorPage from '../ErrorPage/ErrorPage'
 import InfoTooltip from '../InfoTooltip'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
-import apiuser from '../../utils/ApiUsers'
+import apiuser from '../../utils/MainApi'
 import { verifyToken, logout } from '../../utils/Auth'
 
 function App() {
     const [currentUser, setCurrentUser] = useState({})
-    const [cards, setCards] = useState([])
     const [isLoggedIn, setLoggedIn] = useState(false)
     const [userEmail, setUserEmail] = useState('')
     const [isTooltipOpen, setTooltipOpen] = useState(false)
     const [statusTooltip, setStatusTooltip] = useState(false)
     const [textTooltip, setTextTooltip] = useState('')
+    const [savedMovies, setSavedMovies] = useState([])
 
     const closeAllPopups = useCallback(() => {
         setTooltipOpen(false)
     }, [])
 
-    const fetchData = async () => {
+    const authUser = async () => {
         try {
-            const [userData, cardsData] = await Promise.all([
-                apiuser.getUserInfo(),
-                // apiuser.getInitialsCards(),
-            ])
-            console.log(userData)
-            setCurrentUser(userData)
-            setCards(cardsData)
+            const user = await apiuser.getUserInfo()
+            if (user) {
+                setLoggedIn(true)
+                setCurrentUser(user)
+            } else {
+                setLoggedIn(false)
+            }
         } catch (err) {
-            console.error(err)
+            if (err instanceof Error) {
+                console.log(err)
+                setLoggedIn(false)
+            }
         }
     }
 
     useEffect(() => {
+        authUser()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoggedIn])
+
+    useEffect(() => {
         if (isLoggedIn) {
-            fetchData()
+            getSavedMovies()
         }
     }, [isLoggedIn])
+
+    const getSavedMovies = async () => {
+        try {
+            const savedMovies = await apiuser.getMovies()
+            setSavedMovies(savedMovies)
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     const navigate = useNavigate()
     const goBack = () => {
@@ -81,31 +98,30 @@ function App() {
         checkToken()
     }, [])
 
-    const handleCardLike = useCallback(
-        (card) => {
-            // Снова проверяем, есть ли уже лайк на этой карточке
-            // const isLiked = card.likes.some((i) => i._id === currentUser._id)
-            const isLiked = card.likes.some((i) => i === currentUser._id)
+    const handleCardLike = async (movie) => {
+        try {
+            const savedMovie = await apiuser.saveMovie(movie)
+            setSavedMovies([savedMovie, ...savedMovies])
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
-            // Отправляем запрос в API и получаем обновлённые данные карточки
-            apiuser.changeLikeCardStatus(card._id, isLiked)
-                .then((newCard) => {
-                    setCards((state) =>
-                        state.map((c) => (c._id === card._id ? newCard : c))
-                    )
-                })
-                .catch((err) => {
-                    console.error(err)
-                })
-        },
-        [currentUser]
-    )
+    const handleCardDelete = async (movie) => {
+        try {
+            await apiuser.deleteMovie(movie._id)
+            setSavedMovies((state) =>
+                state.filter((item) => item._id !== movie._id)
+            )
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
                 <Header isLoggedIn={isLoggedIn} />
-                {/* <Header isLoggedIn={isLoggedIn} handleSignout={handleSignout} /> */}
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route
@@ -114,8 +130,9 @@ function App() {
                             <ProtectedRoute
                                 isLoggedIn={isLoggedIn}
                                 Component={Movies}
-                                cards={cards}
+                                savedMovies={savedMovies}
                                 onCardLike={handleCardLike}
+                                onCardDelete={handleCardDelete}
                             />
                         }
                     />
@@ -141,16 +158,6 @@ function App() {
                             />
                         }
                     />
-                    {/* <Route
-                        path="*"
-                        element={
-                            isLoggedIn ? (
-                                <Navigate to="/movies" replace />
-                            ) : (
-                                <Navigate to="/" replace />
-                            )
-                        }
-                    /> */}
                     <Route path="*" element={<ErrorPage goBack={goBack} />} />
                 </Routes>
                 <Footer />

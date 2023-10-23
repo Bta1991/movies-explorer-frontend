@@ -2,7 +2,7 @@ import './Movies.css'
 import React, { useState, useEffect } from 'react'
 import MoviesCardList from './MoviesCardList/MoviesCardList'
 import SearchForm from './SearchForm/SearchForm'
-import * as moviesApi from '../../utils/ApiMovies'
+import * as moviesApi from '../../utils/MoviesApi'
 import { filterMovies, filterDuration } from '../../utils/utils'
 
 const Movies = ({ handleLikeClick, savedMovies, onCardDelete }) => {

@@ -1,4 +1,4 @@
-class ApiUsers {
+class MainApi {
     constructor(data) {
         this._baseUrl = data.baseUrl
         this._headers = data.headers
@@ -59,6 +59,14 @@ class ApiUsers {
         }).then(this._checkResponse)
     }
 
+    getMovies() {
+        return this._handleRequest('/movies', {
+            method: 'GET',
+            credentials: 'include',
+            headers: this._headers,
+        })
+    }
+
     deleteCard(cardID) {
         return fetch(`${this._baseUrl}/cards/${cardID}`, {
             method: 'DELETE',
@@ -88,7 +96,7 @@ class ApiUsers {
     }
 }
 
-const apiuser = new ApiUsers({
+const apiuser = new MainApi({
     baseUrl: 'https://api.diplom.nomoredomainsrocks.ru',
     headers: {
         'Content-Type': 'application/json',

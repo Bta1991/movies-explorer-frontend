@@ -1,12 +1,10 @@
 import './SearchForm.css'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-// import Popup from '../Popup/Popup'
 import { EMPTY_SEARCH_MESSAGE } from '../../../utils/constants'
 
 const SearchForm = ({ onSearchMovies, onFilter, isShortMovies }) => {
     const [query, setQuery] = useState('')
-    const [isPopupOpen, setIsPopupOpen] = useState(false)
     const path = useLocation().pathname
 
     const handleChangeQuery = (e) => {
@@ -16,8 +14,7 @@ const SearchForm = ({ onSearchMovies, onFilter, isShortMovies }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (query.trim().length === 0) {
-            setIsPopupOpen(true)
-            setTimeout(() => setIsPopupOpen(false), 3000)
+            setQuery(EMPTY_SEARCH_MESSAGE)
         } else {
             onSearchMovies(query)
         }
@@ -50,7 +47,6 @@ const SearchForm = ({ onSearchMovies, onFilter, isShortMovies }) => {
                     <button className="search-form__button" type="submit">
                         Поиск
                     </button>
-                    {/* {isQueryError && <span className="search-form__error">Нужно ввести ключевое слово</span>} */}
                 </div>
                 <label
                     htmlFor="search-form__short-films"
@@ -71,7 +67,6 @@ const SearchForm = ({ onSearchMovies, onFilter, isShortMovies }) => {
                     </span>
                 </label>
             </form>
-            {/* <Popup isPopupOpen={isPopupOpen} message={EMPTY_SEARCH_MESSAGE} /> */}
         </section>
     )
 }

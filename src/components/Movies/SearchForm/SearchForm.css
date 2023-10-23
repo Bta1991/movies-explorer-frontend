@@ -20,8 +20,8 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 1.11;
-    background-color: var(--gray-bg);
-    color: var(--gray-text);
+    background-color: #202020;
+    color: #8b8b8b;
     outline: none;
 }
 
@@ -29,18 +29,18 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 1.11;
-    color: var(--gray-text);
+    color: #8b8b8b;
 }
 
 .search-form__input:focus {
-    outline: 1px solid var(--gray-border);
+    outline: 1px solid #424242;
 }
 
 .search-form__error {
     font-weight: 400;
     font-size: 11px;
     line-height: 1.2;
-    color: var(--red);
+    color: #ee3465;
     position: absolute;
     top: 70px;
     left: 0;
@@ -53,8 +53,8 @@
     line-height: 1.28;
     font-weight: 500;
     border: none;
-    background-color: var(--blue);
-    color: var(--white);
+    background-color: #4285f4;
+    color: #fff;
     border-radius: 5px;
     margin-left: 10px;
     cursor: pointer;
@@ -104,13 +104,13 @@
 }
 
 .search-form__short-films-checkbox:checked + .search-form__thumb-wrapper {
-    background-color: var(--green);
+    background-color: #3ddc84;
 }
 
 .search-form__short-films-checkbox:checked
     + .search-form__thumb-wrapper
     .search-form__thumb-inner {
-    background-color: var(--white);
+    background-color: #fff;
     transform: translateX(16px);
 }
 
