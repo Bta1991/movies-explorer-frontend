@@ -3,14 +3,13 @@ import { useLocation } from 'react-router-dom'
 
 const Footer = () => {
     const path = useLocation().pathname
-    const classLocal =
+    const classPath =
         path === '/' || path === '/movies' || path === '/saved-movies'
             ? ''
             : 'footer_hidden'
 
     return (
-        <footer className="footer">
-            {/* <footer className={"footer " + classLocal}> */}
+        <footer className={'footer ' + classPath}>
             <div className="container">
                 <p className="footer__info">
                     Учебный проект Яндекс.Практикум х BeatFilm.

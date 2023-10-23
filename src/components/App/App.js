@@ -9,6 +9,7 @@ import Movies from '../Movies'
 import Login from '../Login'
 import Register from '../Register/Register'
 import ProtectedRoute from '../ProtectedRoute'
+import ErrorPage from '../ErrorPage/ErrorPage'
 import InfoTooltip from '../InfoTooltip'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
 import api from '../../utils/Api'
@@ -48,6 +49,9 @@ function App() {
     }, [isLoggedIn])
 
     const navigate = useNavigate()
+    const goBack = () => {
+        navigate(-1, { replace: true })
+    }
     const checkToken = () => {
         verifyToken()
             .then((res) => {
@@ -137,7 +141,7 @@ function App() {
                             />
                         }
                     />
-                    <Route
+                    {/* <Route
                         path="*"
                         element={
                             isLoggedIn ? (
@@ -146,7 +150,8 @@ function App() {
                                 <Navigate to="/" replace />
                             )
                         }
-                    />
+                    /> */}
+                    <Route path="*" element={<ErrorPage goBack={goBack} />} />
                 </Routes>
                 <Footer />
                 <InfoTooltip

@@ -1,6 +1,7 @@
 .project {
     margin: 0;
     padding: 110px 0;
+    letter-spacing: -0.04em;
 }
 
 .project__title {

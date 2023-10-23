@@ -7,12 +7,12 @@ import NavBar from './NavBar/NavBar';
 const Header = ({ isLoggedIn }) => {
   const path = useLocation().pathname;
 
-  const classLocal = path === '/' ? 'header_type_landing'
+  const classPath = path === '/' ? 'header_type_landing'
   : path === "/movies" || path === "/saved-movies" || path === '/profile'
   ? '' : 'header_hidden';
 
   return (
-    <header className={"header " + classLocal}>
+    <header className={"header " + classPath}>
       <div className="container">
         <div className="header__container">
           <Logo />
