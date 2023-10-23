@@ -1,4 +1,4 @@
-class Api {
+class ApiUsers {
     constructor(data) {
         this._baseUrl = data.baseUrl
         this._headers = data.headers
@@ -88,11 +88,11 @@ class Api {
     }
 }
 
-const api = new Api({
-    baseUrl: 'https://api.aaa.nomoredomainsicu.ru',
+const apiuser = new ApiUsers({
+    baseUrl: 'https://api.diplom.nomoredomainsrocks.ru',
     headers: {
         'Content-Type': 'application/json',
     },
 })
 
-export default api
+export default apiuser

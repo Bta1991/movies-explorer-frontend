@@ -1,10 +1,12 @@
 import './Register.css'
+import Logo from '../Header/Logo/Logo'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { register } from '../../utils/Auth'
 
 const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
     const [values, setFormValue] = useState({
+        name: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -33,7 +35,7 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
             setErrorMessage('Введите идентичные пароли!')
             return
         }
-        register(email, password)
+        register(name, email, password)
             .then((data) => {
                 navigate('/signin')
                 handleStatus(true)
@@ -49,6 +51,7 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
 
     return (
         <div className="register">
+            <Logo />
             <h2 className="register__header">Добро пожаловать!</h2>
             <form className="register__form" onSubmit={handleSubmit}>
                 <input

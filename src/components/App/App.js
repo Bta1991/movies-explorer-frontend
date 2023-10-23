@@ -5,14 +5,14 @@ import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import Main from '../Main/Main'
-import Movies from '../Movies'
+import Movies from '../Movies/Movies'
 import Login from '../Login'
 import Register from '../Register/Register'
 import ProtectedRoute from '../ProtectedRoute'
 import ErrorPage from '../ErrorPage/ErrorPage'
 import InfoTooltip from '../InfoTooltip'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
-import api from '../../utils/Api'
+import apiuser from '../../utils/ApiUsers'
 import { verifyToken, logout } from '../../utils/Auth'
 
 function App() {
@@ -31,8 +31,8 @@ function App() {
     const fetchData = async () => {
         try {
             const [userData, cardsData] = await Promise.all([
-                api.getUserInfo(),
-                api.getInitialsCards(),
+                apiuser.getUserInfo(),
+                // apiuser.getInitialsCards(),
             ])
             console.log(userData)
             setCurrentUser(userData)
@@ -88,7 +88,7 @@ function App() {
             const isLiked = card.likes.some((i) => i === currentUser._id)
 
             // Отправляем запрос в API и получаем обновлённые данные карточки
-            api.changeLikeCardStatus(card._id, isLiked)
+            apiuser.changeLikeCardStatus(card._id, isLiked)
                 .then((newCard) => {
                     setCards((state) =>
                         state.map((c) => (c._id === card._id ? newCard : c))

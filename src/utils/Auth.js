@@ -1,4 +1,4 @@
-import { API_URL, API_OPTIONS } from './apiConfig'
+import { API_URL, API_OPTIONS } from './constants'
 
 function handleResponse(res) {
     if (res.ok) {
@@ -16,11 +16,11 @@ function handleResponse(res) {
     }
 }
 
-export function register(email, password) {
+export function register(name, email, password) {
     return fetch(`${API_URL}/signup`, {
         method: 'POST',
         ...API_OPTIONS,
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ name, email, password }),
     }).then(handleResponse)
 }
 

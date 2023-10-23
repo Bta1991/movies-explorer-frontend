@@ -1,0 +1,147 @@
+.search-form {
+    padding: 70px 0 43px;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.2);
+    margin-bottom: 10px;
+}
+
+.search-form__input-container {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    border: 1.5px solid rgba(170, 170, 170, 0.2);
+    padding: 10px;
+    position: relative;
+}
+
+.search-form__input {
+    width: 100%;
+    border: none;
+    padding: 15px 0 15px 15px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.11;
+    background-color: var(--gray-bg);
+    color: var(--gray-text);
+    outline: none;
+}
+
+.search-form__input::placeholder {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.11;
+    color: var(--gray-text);
+}
+
+.search-form__input:focus {
+    outline: 1px solid var(--gray-border);
+}
+
+.search-form__error {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.2;
+    color: var(--red);
+    position: absolute;
+    top: 70px;
+    left: 0;
+}
+
+.search-form__button {
+    width: 100px;
+    height: 52px;
+    font-size: 14px;
+    line-height: 1.28;
+    font-weight: 500;
+    border: none;
+    background-color: var(--blue);
+    color: var(--white);
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: opacity 0.5s linear;
+    padding: 17px 20px;
+    flex-shrink: 0;
+}
+
+.search-form__button:hover {
+    opacity: 0.7;
+}
+
+.search-form__short-films-checkbox {
+    display: none;
+}
+
+.search-form__short-films {
+    margin-top: 26px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.search-form__thumb-wrapper {
+    background-color: #343434;
+    box-sizing: border-box;
+    width: 36px;
+    height: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 6px;
+}
+
+.search-form__thumb-inner {
+    background-color: #a0a0a0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transition: transform 0.4s ease-in-out;
+}
+
+.search-form__short-films-text {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.38;
+    margin-left: 14px;
+}
+
+.search-form__short-films-checkbox:checked + .search-form__thumb-wrapper {
+    background-color: var(--green);
+}
+
+.search-form__short-films-checkbox:checked
+    + .search-form__thumb-wrapper
+    .search-form__thumb-inner {
+    background-color: var(--white);
+    transform: translateX(16px);
+}
+
+@media screen and (max-width: 767px) {
+    .search-form {
+        padding: 70px 4px 63px;
+    }
+
+    .search-form__button {
+        width: 80px;
+        height: 44px;
+        padding: 13px 10px;
+    }
+
+    .search-form__short-films-text {
+        font-size: 11px;
+        line-height: 1.63;
+    }
+
+    .search-form__input {
+        font-size: 16px;
+        line-height: 1;
+        padding: 12px 0 12px 6px;
+    }
+
+    .search-form__input::placeholder {
+        font-size: 16px;
+        line-height: 1;
+    }
+
+    .search-form__input-container {
+        padding: 6px;
+    }
+}
