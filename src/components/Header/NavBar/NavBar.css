@@ -151,12 +151,12 @@
         margin-top: 159px;
     }
 
-    .navbar_state_opened {
+    .navbar__container_opened {
         right: 0;
         visibility: visible;
     }
 
-    .navbar_state_closed {
+    .navbar__container_closed {
         right: -100%;
         visibility: hidden;
     }
@@ -188,7 +188,7 @@
         margin-bottom: 46px;
     }
 
-    .navbar_state_closed {
+    .navbar__container_closed {
         right: -200%;
     }
 }

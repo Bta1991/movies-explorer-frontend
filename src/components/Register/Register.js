@@ -57,7 +57,7 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
                     className="register__input"
                     id="name"
                     name="name"
-                    type="name"
+                    type="text"
                     placeholder="Имя"
                     value={values.name}
                     onChange={handleChange}
@@ -73,7 +73,7 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
                     placeholder="E-mail"
                     value={values.email}
                     onChange={handleChange}
-                    pattern='^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$'
+                    pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
                 />
                 <input
                     required

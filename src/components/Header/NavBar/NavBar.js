@@ -34,7 +34,7 @@ const NavBar = ({ path }) => {
             />
 
             <nav
-                className={`navbar__container navbar_state_${
+                className={`navbar__container navbar__container_${
                     isBurgerOpened ? 'opened' : 'closed'
                 }`}
                 onClick={handleCloseByOverlay}

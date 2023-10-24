@@ -60,9 +60,9 @@ const SearchForm = ({ onSearchMovies, onFilter, isShortMovies }) => {
                         onChange={onFilter}
                         checked={isShortMovies}
                     />
-                    <div className="search-form__thumb-wrapper">
-                        <div className="search-form__thumb-inner" />
-                    </div>
+                    <span className="search-form__thumb-wrapper">
+                        <span className="search-form__thumb-inner" />
+                    </span>
                     <span className="search-form__short-films-text">
                         Короткометражки
                     </span>
