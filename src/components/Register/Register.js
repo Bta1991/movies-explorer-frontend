@@ -61,6 +61,8 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
                     placeholder="Имя"
                     value={values.name}
                     onChange={handleChange}
+                    minLength={2}
+                    maxLength={30}
                 />
                 <input
                     required
@@ -71,6 +73,7 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
                     placeholder="E-mail"
                     value={values.email}
                     onChange={handleChange}
+                    pattern='^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$'
                 />
                 <input
                     required
@@ -81,6 +84,7 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
                     placeholder="Пароль"
                     value={values.password}
                     onChange={handleChange}
+                    minLength={3}
                 />
 
                 <button type="submit" className="register__button">

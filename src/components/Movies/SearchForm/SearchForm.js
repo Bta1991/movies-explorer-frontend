@@ -36,6 +36,7 @@ const SearchForm = ({ onSearchMovies, onFilter, isShortMovies }) => {
             >
                 <div className="search-form__input-container">
                     <input
+                        required
                         className="search-form__input"
                         name="query"
                         id="search-input"

@@ -52,7 +52,8 @@ const Profile = ({ onLogout, onUpdateUser }) => {
                                 placeholder="Имя"
                                 value={values.name || ''}
                                 onChange={handleChange}
-                                minLength={3}
+                                minLength={2}
+                                maxLength={30}
                                 disabled={!inEditMode}
                                 required
                             />

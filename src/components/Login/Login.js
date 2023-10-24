@@ -79,6 +79,7 @@ const Login = ({
                     placeholder="Пароль"
                     value={formValue.password}
                     onChange={handleChange}
+                    minLength={3}
                 />
                 <button type="submit" className="register__button">
                     Войти
