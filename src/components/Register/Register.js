@@ -9,7 +9,6 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
         name: '',
         email: '',
         password: '',
-        confirmPassword: '',
     })
 
     const handleChange = (e) => {
@@ -24,17 +23,14 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
     const [errorMessage, setErrorMessage] = useState('')
 
     const handleSubmit = (e) => {
-        const { name, email, password, confirmPassword } = values
+        const { name, email, password } = values
 
         e.preventDefault()
-        if (!name || !email || !password || !confirmPassword) {
+        if (!name || !email || !password) {
             setErrorMessage('Заполните все поля!')
             return
         }
-        if (password !== confirmPassword) {
-            setErrorMessage('Введите идентичные пароли!')
-            return
-        }
+
         register(name, email, password)
             .then((data) => {
                 navigate('/signin')
@@ -84,17 +80,6 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
                     type="password"
                     placeholder="Пароль"
                     value={values.password}
-                    onChange={handleChange}
-                />
-                {/* добавлено подтверждение пароля */}
-                <input
-                    required
-                    className="register__input register__input-smallgap"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type="password"
-                    placeholder="Введите пароль ещё раз"
-                    value={values.confirmPassword}
                     onChange={handleChange}
                 />
 
