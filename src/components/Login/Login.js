@@ -1,13 +1,14 @@
+import './Login.css'
+import Logo from '../Header/Logo/Logo'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { authorize } from '../utils/Auth'
+import { Link, useNavigate } from 'react-router-dom'
+import { authorize } from '../../utils/Auth'
 
 const Login = ({
     handleLogin,
     handleTooltip,
     handleStatus,
     handeTextTooltip,
-    setUserEmail,
 }) => {
     const [formValue, setFormValue] = useState({
         email: '',
@@ -36,7 +37,6 @@ const Login = ({
         authorize(email, password)
             .then((data) => {
                 handleLogin(true)
-                setUserEmail(email)
                 handleStatus(true)
                 handleTooltip(true)
                 handeTextTooltip('Здравствуйте!')
@@ -45,19 +45,24 @@ const Login = ({
             .catch((err) => {
                 handleStatus(false)
                 err.name === 'ValidationError'
-                ? handeTextTooltip('Переданы некорректные данные пользователя')
-                : handeTextTooltip(err);
+                    ? handeTextTooltip(
+                          'Переданы некорректные данные пользователя'
+                      )
+                    : handeTextTooltip(err)
                 handleTooltip(true)
             })
     }
 
     return (
-        <div className="authorization">
-            <h2 className="authorization__header">Вход</h2>
-            <form className="authorization__form" onSubmit={handleSubmit}>
+        <div className="register">
+            <h2 className="register__header">
+                <Logo />
+                Рады видеть!
+            </h2>
+            <form className="register__form" onSubmit={handleSubmit}>
                 <input
                     required
-                    className="authorization__input"
+                    className="register__input"
                     id="email"
                     type="email"
                     name="email"
@@ -67,7 +72,7 @@ const Login = ({
                 />
                 <input
                     required
-                    className="authorization__input authorization__input-gap"
+                    className="register__input register__input-gap"
                     id="password"
                     type="password"
                     name="password"
@@ -75,9 +80,18 @@ const Login = ({
                     value={formValue.password}
                     onChange={handleChange}
                 />
-                <button type="submit" className="authorization__button">
+                <button type="submit" className="register__button">
                     Войти
                 </button>
+
+                <div className="register__link-area">
+                    <p className="register__link-text">
+                        Ещё не зарегистрированы?
+                    </p>
+                    <Link to="/signup" className="register__link">
+                        Регистрация
+                    </Link>
+                </div>
             </form>
         </div>
     )

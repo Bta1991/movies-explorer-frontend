@@ -1,6 +1,7 @@
+import './InfoTooltip.css'
 import React from 'react'
-import okPic from '../images/access-granted.svg'
-import rejectPic from '../images/access-denied.svg'
+import okPic from '../../images/access-granted.svg'
+import rejectPic from '../../images/access-denied.svg'
 
 function InfoTooltip({ isOpen, status, text, onClose }) {
     const popupClass = `popup ${isOpen ? 'popup_opened' : ''}`
@@ -13,12 +14,7 @@ function InfoTooltip({ isOpen, status, text, onClose }) {
                     className="popup__info-icon"
                     alt="иконка"
                 />
-                <h2 className="popup__info-text">
-                    {text}
-                    {/* {status
-                        ? 'Вы успешно зарегистрировались!'
-                        : 'Что-то пошло не так! Попробуйте ещё раз.'} */}
-                </h2>
+                <h2 className="popup__info-text">{text}</h2>
                 <button
                     type="button"
                     className="popup__close"

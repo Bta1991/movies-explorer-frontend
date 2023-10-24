@@ -7,11 +7,12 @@ import Footer from '../Footer/Footer'
 import Main from '../Main/Main'
 import Movies from '../Movies/Movies'
 import SavedMovies from '../SavedMovies/SavedMovies'
-import Login from '../Login'
+import Login from '../Login/Login'
 import Register from '../Register/Register'
-import ProtectedRoute from '../ProtectedRoute'
+import Profile from '../Profile/Profile'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import ErrorPage from '../ErrorPage/ErrorPage'
-import InfoTooltip from '../InfoTooltip'
+import InfoTooltip from '../InfoTooltip/InfoTooltip'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
 import apiuser from '../../utils/MainApi'
 import { verifyToken, logout } from '../../utils/Auth'
@@ -19,7 +20,6 @@ import { verifyToken, logout } from '../../utils/Auth'
 function App() {
     const [currentUser, setCurrentUser] = useState({})
     const [isLoggedIn, setLoggedIn] = useState(false)
-    const [userEmail, setUserEmail] = useState('')
     const [isTooltipOpen, setTooltipOpen] = useState(false)
     const [statusTooltip, setStatusTooltip] = useState(false)
     const [textTooltip, setTextTooltip] = useState('')
@@ -43,6 +43,15 @@ function App() {
                 console.log(err)
                 setLoggedIn(false)
             }
+        }
+    }
+
+    const handleUpdateUser = async ({ name, email }) => {
+        try {
+            const userData = await apiuser.setUserInfo(name, email)
+            setCurrentUser(userData)
+        } catch (err) {
+            console.error(err)
         }
     }
 
@@ -73,7 +82,6 @@ function App() {
     const checkToken = () => {
         verifyToken()
             .then((res) => {
-                setUserEmail(res.data?.email)
                 setLoggedIn(true)
                 navigate('/')
             })
@@ -87,8 +95,10 @@ function App() {
         logout()
             .then(() => {
                 setLoggedIn(false)
-                navigate('/')
-                setUserEmail('')
+                setCurrentUser(null)
+                localStorage.clear()
+                sessionStorage.clear()
+                navigate('/', { replace: true })
             })
             .catch((err) => {
                 console.log(err)
@@ -150,6 +160,17 @@ function App() {
                         }
                     />
                     <Route
+                        path="/profile"
+                        element={
+                            <ProtectedRoute
+                                isLoggedIn={isLoggedIn}
+                                Component={Profile}
+                                onLogout={handleSignout}
+                                onUpdateUser={handleUpdateUser}
+                            />
+                        }
+                    />
+                    <Route
                         path="/signin"
                         element={
                             <Login
@@ -157,7 +178,6 @@ function App() {
                                 handleTooltip={setTooltipOpen}
                                 handleStatus={setStatusTooltip}
                                 handeTextTooltip={setTextTooltip}
-                                setUserEmail={setUserEmail}
                             />
                         }
                     />
