@@ -15,7 +15,7 @@
 }
 
 .profile__title {
-    margin: 0 0 123px;
+    margin: 0 0 105px;
     padding: 0;
     align-self: center;
     text-align: center;
@@ -161,12 +161,13 @@
 
 @media screen and (max-width: 1000px) {
     .profile__inner {
+        margin-top: 235px;
         min-height: 445px;
         margin-bottom: 35px;
     }
 
     .profile__title {
-        margin-bottom: 96px;
+        margin-bottom: 80px;
     }
 
     .profile__button-save {
@@ -176,11 +177,11 @@
 
 @media screen and (max-width: 600px) {
     .profile__inner {
-        margin: 70px 0;
+        margin: 70px 30px;
     }
 
     .profile__title {
-        margin-bottom: 80px;
+        margin-bottom: 65px;
     }
 
     .profile__edit-button {
@@ -191,5 +192,9 @@
     .profile__exit-button {
         font-size: 12px;
         line-height: normal;
+    }
+
+    .profile__buttons {
+        margin-top: 345px;
     }
 }

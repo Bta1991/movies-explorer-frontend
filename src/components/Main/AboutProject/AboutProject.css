@@ -1,31 +1,34 @@
 .project {
     margin: 0;
-    padding: 110px 0;
-    letter-spacing: -0.04em;
+    padding: 95px 0 110px;
 }
 
 .project__title {
     font-size: 22px;
+    font-weight: 400;
     padding-bottom: 23px;
     border-bottom: 1px solid #dadada;
+    letter-spacing: -0.04em;
 }
 
 .project__info {
     margin: 70px 0 0;
     display: flex;
-    gap: 40px;
+    gap: 50px;
 }
 
 .project__info-title {
     margin: 0;
     font-size: 20px;
     font-weight: 400;
+    letter-spacing: -0.04em;
 }
 
 .project__info-text {
     margin: 26px 0 0;
     font-size: 14px;
     line-height: 1.43;
+    font-weight: 300;
 }
 
 .project__timeline {
@@ -60,10 +63,11 @@
 
 @media (max-width: 1000px) {
     .project {
-        padding: 90px 20px;
+        padding: 70px 20px 90px;
     }
 
     .project__info {
+        margin-top: 75px;
         gap: 30px;
     }
 
@@ -80,7 +84,7 @@
 
 @media (max-width: 700px) {
     .project {
-        padding: 70px 8px;
+        padding: 58px 8px;
     }
 
     .project__info {
@@ -106,8 +110,9 @@
     }
 
     .project__timeline {
-        margin-top: 60px;
+        margin-top: 58px;
         font-size: 11px;
-        gap: 10px 0;
+        gap: 8px 0;
+        grid-template-columns: 1fr 2fr;
     }
 }
