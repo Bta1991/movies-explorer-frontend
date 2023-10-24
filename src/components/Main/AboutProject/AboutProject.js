@@ -4,21 +4,21 @@ const AboutProject = () => {
     return (
         <section className="project" id="project">
             <div className="container">
-                <article className="project__title">О проекте</article>
+                <h2 className="project__title">О проекте</h2>
                 <div className="project__info">
                     <div>
-                        <h2 className="project__info-title">
+                        <h3 className="project__info-title">
                             Дипломный проект включал 5 этапов
-                        </h2>
+                        </h3>
                         <p className="project__info-text">
                             Составление плана, работу над бэкендом, вёрстку,
                             добавление функциональности и финальные доработки.
                         </p>
                     </div>
                     <div>
-                        <h2 className="project__info-title">
+                        <h3 className="project__info-title">
                             На выполнение диплома ушло 5 недель
-                        </h2>
+                        </h3>
                         <p className="project__info-text">
                             У каждого этапа был мягкий и жёсткий дедлайн,
                             которые нужно было соблюдать, чтобы успешно

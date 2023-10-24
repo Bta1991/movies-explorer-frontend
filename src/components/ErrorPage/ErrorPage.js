@@ -7,7 +7,11 @@ const ErrorPage = ({ goBack }) => {
                 <h1 className="error-page__title">404</h1>
                 <p className="error-page__text">Страница не найдена</p>
             </section>
-            <button className="error-page__button" onClick={goBack}>
+            <button
+                type="button"
+                className="error-page__button"
+                onClick={goBack}
+            >
                 Назад
             </button>
         </main>

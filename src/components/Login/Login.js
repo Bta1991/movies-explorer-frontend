@@ -54,11 +54,11 @@ const Login = ({
     }
 
     return (
-        <div className="register">
-            <h2 className="register__header">
+        <main className="register">
+            <h1 className="register__header">
                 <Logo />
                 Рады видеть!
-            </h2>
+            </h1>
             <form className="register__form" onSubmit={handleSubmit}>
                 <input
                     required
@@ -93,7 +93,7 @@ const Login = ({
                     </Link>
                 </div>
             </form>
-        </div>
+        </main>
     )
 }
 

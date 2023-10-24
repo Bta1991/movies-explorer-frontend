@@ -1,5 +1,5 @@
 import './Promo.css'
-import promoPic from '../../../images/promo.png'
+import promoPic from '../../../images/promo.svg'
 
 const Promo = () => {
     return (

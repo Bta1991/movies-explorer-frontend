@@ -23,8 +23,7 @@
 .portfolio__item {
     padding-bottom: 19px;
     border-bottom: 1px solid #424242;
-    display: flex;
-    justify-content: space-between;
+
 }
 
 .portfolio__item:last-of-type {
@@ -32,17 +31,20 @@
     border-bottom: none;
 }
 
-.portfolio__link {
-    text-decoration: none;
-    color: #fff;
-    transition: opacity 0.5s linear;
+.portfolio__link-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  color: #fff;
+  transition: opacity 0.5s linear;
 }
 
 .portfolio__arrow {
     margin: 0;
 }
 
-.portfolio__link:hover {
+.portfolio__link-wrapper:hover {
     opacity: 0.7;
     cursor: pointer;
 }

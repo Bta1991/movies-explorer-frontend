@@ -4,10 +4,10 @@ const Techs = () => {
     return (
         <section className="techs" id="techs">
             <div className="container">
-                <article className="techs__title">Технологии</article>
+                <h2 className="techs__title">Технологии</h2>
                 <div className="techs__info">
                     <div>
-                        <h2 className="techs__info-title">7 технологий</h2>
+                        <h3 className="techs__info-title">7 технологий</h3>
                         <p className="techs__info-text">
                             На курсе веб-разработки мы освоили технологии,
                             которые применили в дипломном проекте.

@@ -5,13 +5,13 @@ const AboutMe = () => {
     return (
         <section className="about" id="about">
             <div className="container">
-                <article className="about__title">Студентка</article>
+                <h2 className="about__title">Студентка</h2>
                 <div className="about__info">
                     <div>
-                        <h2 className="about__info-title">Татьяна</h2>
-                        <h3 className="about__info-subtitle">
+                        <h3 className="about__info-title">Татьяна</h3>
+                        <h4 className="about__info-subtitle">
                             Фронтенд-разработчик
-                        </h3>
+                        </h4>
                         <p className="about__info-text">
                             Я начинающий фронтенд-разработчик. По образованию
                             экономст. Решила попробовать себя в сфере ИТ и

@@ -50,11 +50,11 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
     }
 
     return (
-        <div className="register">
-            <h2 className="register__header">
+        <main className="register">
+            <h1 className="register__header">
                 <Logo />
                 Добро пожаловать!
-            </h2>
+            </h1>
             <form className="register__form" onSubmit={handleSubmit}>
                 <input
                     required
@@ -109,7 +109,7 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
                     </Link>
                 </div>
             </form>
-        </div>
+        </main>
     )
 }
 
