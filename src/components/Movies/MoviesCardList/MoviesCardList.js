@@ -16,7 +16,7 @@ const MoviesCardList = (props) => {
         isLoading,
         isReqErr,
         isNotFound,
-        handleLikeClick,
+        onCardLike,
         savedMovies,
         onCardDelete,
     } = props
@@ -82,7 +82,7 @@ const MoviesCardList = (props) => {
                                         cards={cards}
                                         card={card}
                                         isSavedFilms={isSavedFilms}
-                                        handleLikeClick={handleLikeClick}
+                                        onCardLike={onCardLike}
                                         onCardDelete={onCardDelete}
                                         savedMovies={savedMovies}
                                     />
@@ -110,7 +110,7 @@ const MoviesCardList = (props) => {
                                     cards={cards}
                                     card={card}
                                     isSavedFilms={isSavedFilms}
-                                    handleLikeClick={handleLikeClick}
+                                    onCardLike={onCardLike}
                                     onCardDelete={onCardDelete}
                                     savedMovies={savedMovies}
                                 />

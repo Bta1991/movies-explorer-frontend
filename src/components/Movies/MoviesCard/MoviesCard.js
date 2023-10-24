@@ -4,7 +4,7 @@ import { formatDuration } from '../../../utils/utils'
 const MoviesCard = ({
     card,
     isSavedFilms,
-    handleLikeClick,
+    onCardLike,
     onCardDelete,
     saved,
     savedMovies,
@@ -15,7 +15,7 @@ const MoviesCard = ({
                 savedMovies.filter((m) => m.movieId === card.movieId)[0]
             )
         } else {
-            handleLikeClick(card)
+            onCardLike(card)
         }
     }
 

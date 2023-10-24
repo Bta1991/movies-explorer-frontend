@@ -10,13 +10,6 @@ class MainApi {
             : Promise.reject(`Ошибка получения данных: ${res.status}`)
     }
 
-    getInitialsCards() {
-        return fetch(`${this._baseUrl}/cards`, {
-            credentials: 'include',
-            headers: this._headers,
-        }).then(this._checkResponse)
-    }
-
     getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
             credentials: 'include',
@@ -36,63 +29,29 @@ class MainApi {
         }).then(this._checkResponse)
     }
 
-    setAvatar(link) {
-        return fetch(`${this._baseUrl}/users/me/avatar`, {
-            method: 'PATCH',
-            credentials: 'include',
-            headers: this._headers,
-            body: JSON.stringify({
-                avatar: link.avatar,
-            }),
-        }).then(this._checkResponse)
-    }
-
-    addCard(card) {
-        return fetch(`${this._baseUrl}/cards`, {
-            method: 'POST',
-            credentials: 'include',
-            headers: this._headers,
-            body: JSON.stringify({
-                name: card.title,
-                link: card.link,
-            }),
-        }).then(this._checkResponse)
-    }
-
     getMovies() {
-        return this._handleRequest('/movies', {
+        return fetch(`${this._baseUrl}/movies`, {
             method: 'GET',
             credentials: 'include',
             headers: this._headers,
-        })
+        }).then(this._checkResponse)
     }
 
-    deleteCard(cardID) {
-        return fetch(`${this._baseUrl}/cards/${cardID}`, {
+    saveMovie(data) {
+        return fetch(`${this._baseUrl}/movies`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: this._headers,
+            body: JSON.stringify(data),
+        }).then(this._checkResponse)
+    }
+
+    deleteMovie(id) {
+        return fetch(`${this._baseUrl}/movies/${id}`, {
             method: 'DELETE',
             credentials: 'include',
             headers: this._headers,
         }).then(this._checkResponse)
-    }
-
-    setLike(cardID) {
-        return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
-            method: 'PUT',
-            credentials: 'include',
-            headers: this._headers,
-        }).then(this._checkResponse)
-    }
-
-    deleteLike(cardID) {
-        return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
-            method: 'DELETE',
-            credentials: 'include',
-            headers: this._headers,
-        }).then(this._checkResponse)
-    }
-
-    changeLikeCardStatus(cardID, isLiked) {
-        return isLiked ? this.deleteLike(cardID) : this.setLike(cardID)
     }
 }
 

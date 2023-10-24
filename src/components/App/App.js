@@ -6,6 +6,7 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import Main from '../Main/Main'
 import Movies from '../Movies/Movies'
+import SavedMovies from '../SavedMovies/SavedMovies'
 import Login from '../Login'
 import Register from '../Register/Register'
 import ProtectedRoute from '../ProtectedRoute'
@@ -100,6 +101,7 @@ function App() {
 
     const handleCardLike = async (movie) => {
         try {
+            console.log(movie)
             const savedMovie = await apiuser.saveMovie(movie)
             setSavedMovies([savedMovie, ...savedMovies])
         } catch (err) {
@@ -132,6 +134,17 @@ function App() {
                                 Component={Movies}
                                 savedMovies={savedMovies}
                                 onCardLike={handleCardLike}
+                                onCardDelete={handleCardDelete}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/saved-movies"
+                        element={
+                            <ProtectedRoute
+                                isLoggedIn={isLoggedIn}
+                                Component={SavedMovies}
+                                savedMovies={savedMovies}
                                 onCardDelete={handleCardDelete}
                             />
                         }

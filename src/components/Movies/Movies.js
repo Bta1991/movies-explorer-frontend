@@ -5,7 +5,7 @@ import SearchForm from './SearchForm/SearchForm'
 import * as moviesApi from '../../utils/MoviesApi'
 import { filterMovies, filterDuration } from '../../utils/utils'
 
-const Movies = ({ handleLikeClick, savedMovies, onCardDelete }) => {
+const Movies = ({ onCardLike, savedMovies, onCardDelete }) => {
     const [isLoading, setIsLoading] = useState(false) // прелоадер
     const [initialMovies, setInitialMovies] = useState([]) // начальные фильмы
     const [filteredMovies, setFilteredMovies] = useState([]) // поиск фильмов
@@ -94,7 +94,7 @@ const Movies = ({ handleLikeClick, savedMovies, onCardDelete }) => {
                     isLoading={isLoading}
                     isRequestErr={isRequestErr}
                     isNotFound={isNotFound}
-                    handleLikeClick={handleLikeClick}
+                    onCardLike={onCardLike}
                     onCardDelete={onCardDelete}
                 />
             </div>
