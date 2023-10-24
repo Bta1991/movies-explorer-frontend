@@ -1,12 +1,12 @@
-.register {
+.login {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     max-width: 396px;
 }
 
-.register__header {
-    margin: 70px 0 40px;
+.login__header {
+    margin: 70px 0 44px;
     padding: 0;
     font-size: 24px;
     font-weight: 500;
@@ -16,15 +16,15 @@
     gap: 40px;
 }
 
-.register__form {
+.login__form {
     margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.register__input {
-    margin: 0 0 30px;
+.login__input {
+    margin: 0 0 26px;
     padding: 0;
     border: none;
     outline: none;
@@ -32,22 +32,24 @@
     width: 396px;
     font-size: 14px;
     font-weight: 400;
-    line-height: 27px;
+    line-height: 30px;
     background-color: #202020;
     color: #fff;
 }
-.register__input:focus {
+.login__input:focus {
     border-bottom: 1px solid #4285f4;
 }
 
-.register__input-gap:last-of-type {
-    margin-bottom: 216px;
+.login__input:last-of-type {
+    margin-bottom: 220px;
 }
-.register__input-smallgap:last-of-type {
-    margin-bottom: 124px;
+.login__label {
+    align-self: start;
+    font-size: 10px;
+    color: #8b8b8b;
 }
 
-.register__button {
+.login__button {
     margin: 0 auto;
     padding: 0;
     width: 396px;
@@ -62,21 +64,22 @@
     transition: all 0.4s ease-in-out;
 }
 
-.register__button:hover {
+.login__button:hover {
     opacity: 0.8;
     cursor: pointer;
 }
 
-.register__link {
+.login__link {
     text-decoration: none;
     text-align: center;
     color: #4285f4;
 }
-.register__link-text {
+.login__link-text {
     color: #8b8b8b;
 }
 
-.register__link-area {
+.login__link-area {
+    margin-top: 3px;
     display: flex;
     align-items: center;
     grid-gap: 6px;
@@ -84,33 +87,32 @@
 }
 
 @media screen and (max-width: 1000px) {
-    .register__header {
-        margin-top: 232px;
+    .login__header {
+        margin-top: 230px;
     }
 }
 
 @media screen and (max-width: 700px) {
-    .register__header {
-        margin: 56px auto 80px;
+    .login__header {
+        margin: 56px auto 85px;
         align-items: center;
+        gap: 50px;
     }
-    .register__link-area {
+
+    .login__link-area {
         font-size: 12px;
     }
 
-    .register__button {
+    .login__button {
         width: 260px;
         height: 45px;
         font-size: 12px;
     }
 
-    .register__input {
+    .login__input {
         width: 260px;
     }
-    .register__input-gap:last-of-type {
-        margin-bottom: 0 0 173px;
-    }
-    .register__input-smallgap:last-of-type {
-        margin-bottom: 0 0 140px;
+    .login__input:last-of-type {
+        margin-bottom: 310px;
     }
 }

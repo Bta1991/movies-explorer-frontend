@@ -52,36 +52,36 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
                 Добро пожаловать!
             </h1>
             <form className="register__form" onSubmit={handleSubmit}>
+                <label className="register__label">Имя</label>
                 <input
                     required
                     className="register__input"
                     id="name"
                     name="name"
                     type="text"
-                    placeholder="Имя"
                     value={values.name}
                     onChange={handleChange}
                     minLength={2}
                     maxLength={30}
                 />
+                <label className="register__label">E-mail</label>
                 <input
                     required
                     className="register__input"
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="E-mail"
                     value={values.email}
                     onChange={handleChange}
                     pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
                 />
+                <label className="register__label">Пароль</label>
                 <input
                     required
                     className="register__input"
                     id="password"
                     name="password"
                     type="password"
-                    placeholder="Пароль"
                     value={values.password}
                     onChange={handleChange}
                     minLength={3}

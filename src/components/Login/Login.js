@@ -54,42 +54,42 @@ const Login = ({
     }
 
     return (
-        <main className="register">
-            <h1 className="register__header">
+        <main className="login">
+            <h1 className="login__header">
                 <Logo />
                 Рады видеть!
             </h1>
-            <form className="register__form" onSubmit={handleSubmit}>
+            <form className="login__form" onSubmit={handleSubmit}>
+                <label className="login__label">E-mail</label>
                 <input
                     required
-                    className="register__input"
+                    className="login__input"
                     id="email"
                     type="email"
                     name="email"
-                    placeholder="E-mail"
                     value={formValue.email}
                     onChange={handleChange}
                 />
+                <label className="login__label">Пароль</label>
                 <input
                     required
-                    className="register__input register__input-gap"
+                    className="login__input login__input-gap"
                     id="password"
                     type="password"
                     name="password"
-                    placeholder="Пароль"
                     value={formValue.password}
                     onChange={handleChange}
                     minLength={3}
                 />
-                <button type="submit" className="register__button">
+                <button type="submit" className="login__button">
                     Войти
                 </button>
 
-                <div className="register__link-area">
-                    <p className="register__link-text">
+                <div className="login__link-area">
+                    <p className="login__link-text">
                         Ещё не зарегистрированы?
                     </p>
-                    <Link to="/signup" className="register__link">
+                    <Link to="/signup" className="login__link">
                         Регистрация
                     </Link>
                 </div>
