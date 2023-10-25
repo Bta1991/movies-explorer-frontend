@@ -1,0 +1,123 @@
+.techs {
+    margin: 0;
+    padding: 85px 0 100px;
+    background-color: #272727;
+}
+
+.techs__title {
+    font-size: 22px;
+    padding-bottom: 23px;
+    border-bottom: 1px solid #dadada;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+}
+
+.techs__info {
+    margin: 90px 0 0;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.techs__info-title {
+    margin: 0;
+    font-size: 50px;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+}
+
+.techs__info-text {
+    margin: 26px 0 0;
+    max-width: 460px;
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.04em;
+}
+
+.techs__list {
+    margin: 100px 0 0;
+    padding: 0;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 14px;
+    letter-spacing: -0.04em;
+}
+
+.techs__list-header {
+    margin: 0;
+    min-height: 60px;
+    width: 90px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #303030;
+}
+
+@media (max-width: 1000px) {
+    .techs {
+        padding: 75px 20px 90px;
+    }
+
+    .techs__info {
+        margin-top: 80px;
+        gap: 30px;
+    }
+
+    .techs__info-text {
+        margin-top: 22px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .techs__list {
+        margin-top: 80px;
+    }
+
+    .techs__list-header {
+        width: 84px;
+    }
+}
+
+@media (max-width: 700px) {
+    .techs {
+        padding: 70px 8px;
+    }
+
+    .techs__title {
+        font-size: 18px;
+        padding-bottom: 28px;
+    }
+
+    .techs__info {
+        margin-top: 60px;
+        flex-direction: column;
+        align-items: center;
+        gap: 56px;
+    }
+
+    .techs__info-title {
+        font-size: 30px;
+    }
+
+    .techs__info-text {
+        font-size: 11px;
+        line-height: 16px;
+        margin-top: 24px;
+    }
+
+    .techs__list {
+        padding: 0;
+        margin-top: 50px;
+        font-size: 11px;
+        display: grid;
+        gap: 10px 3px;
+        /* gap: 10px; */
+        grid-template-columns: repeat(2, 90px);
+    }
+    .techs__list-header {
+        /* width: 80px; */
+    }
+}

@@ -1,0 +1,139 @@
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.card {
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    background-color: #222;
+    padding: 18px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-sizing: border-box;
+}
+
+.card__description {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 0 18px;
+}
+
+.card__poster {
+    height: 200px;
+    object-fit: cover;
+    background-position: center;
+    width: 100%;
+}
+
+.card__title {
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 240px;
+    margin: 0;
+}
+
+.card__duration {
+    max-width: 70px;
+    font-size: 13px;
+    line-height: 1.38;
+    font-weight: 400;
+    text-align: right;
+    color: #8B8B8B;
+    margin: 0;
+}
+
+.card__button {
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 29px;
+    font-size: 12px;
+    line-height: 0.92;
+    font-weight: 400;
+    color: #fff;
+    background-position: 50% 50%;
+    transition: all 0.3s ease;
+    padding: 0;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.card__button:hover {
+    opacity: 0.8;
+}
+
+.card__button_type_save {
+    background-color: #313131;
+    border-radius: 30px;
+}
+
+.card__button_type_saved {
+    background-image: url('../../../images/card-saved.svg');
+}
+
+.card__button_type_unsaved {
+    background-image: url('../../../images/card-unsaved.svg');
+}
+
+.card:hover {
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 1023px) {
+    .card__description {
+        gap: 12px;
+    }
+
+    .card__title {
+        max-width: 224px;
+    }
+
+    .card__poster {
+        height: 190px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .card {
+        gap: 14px;
+        padding: 14px 0;
+    }
+
+    .card__description {
+        padding: 0 14px;
+        gap: 22px;
+    }
+
+    .card__title {
+        max-width: 200px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .card__duration {
+        max-width: 50px;
+        font-size: 10px;
+        line-height: 1.8;
+    }
+
+    .card__poster {
+        height: 168px;
+    }
+}
