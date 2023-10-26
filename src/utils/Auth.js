@@ -4,14 +4,8 @@ function handleResponse(res) {
     if (res.ok) {
         return res.json()
     } else {
-        return res.json().then((data) => {
-            if (data.error) {
-                return Promise.reject(`Ошибка: ${data.error}`)
-            } else if (data.message) {
-                return Promise.reject(`Ошибка: ${data.message}`)
-            } else {
-                return Promise.reject(`Ошибка: ${res}`)
-            }
+        return res.json().then((error) => {
+            return Promise.reject(error)
         })
     }
 }

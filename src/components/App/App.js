@@ -40,7 +40,6 @@ function App() {
             }
         } catch (err) {
             if (err instanceof Error) {
-                // console.log(err)
                 setLoggedIn(false)
             }
         }
@@ -89,7 +88,7 @@ function App() {
             verifyToken()
                 .then((res) => {
                     setLoggedIn(true)
-                    // navigate('/')
+                    // navigate('/movies')
                 })
                 .catch((err) => {
                     handleSignout()

@@ -48,31 +48,15 @@ const Register = ({
                 handeTextTooltip('Вы успешно зарегистрировались!')
             })
             .catch((err) => {
-                handeTextTooltip(err)
+                err.message === 'Validation failed'
+                    ? handeTextTooltip(
+                          'Переданы некорректные данные пользователя'
+                      )
+                    : handeTextTooltip(err.message)
                 handleStatus(false)
                 handleTooltip(true)
             })
     }
-
-    // const auth = () => {
-    //     authorize(email, password)
-    //         .then((data) => {
-    //             handleLogin(true)
-    //             handleStatus(true)
-    //             handleTooltip(true)
-    //             handeTextTooltip('Здравствуйте!')
-    //             navigate('/')
-    //         })
-    //         .catch((err) => {
-    //             handleStatus(false)
-    //             err.name === 'ValidationError'
-    //                 ? handeTextTooltip(
-    //                       'Переданы некорректные данные пользователя'
-    //                   )
-    //                 : handeTextTooltip(err)
-    //             handleTooltip(true)
-    //         })
-    // }
 
     return (
         <main className="register">

@@ -54,7 +54,7 @@ const MoviesCardList = (props) => {
     }
 
     return (
-        <section className="cards" aria-label="Список карточек">
+        <section className="cards" aria-label="Список карт фильмов">
             {<Preloader isOpen={isLoading} />}
             {isNotFound && !isLoading && (
                 <p className="cards__search-error">{NOT_FOUND_MESSAGE}</p>

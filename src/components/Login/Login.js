@@ -39,16 +39,16 @@ const Login = ({
                 handleLogin(true)
                 handleStatus(true)
                 handleTooltip(true)
-                handeTextTooltip('Здравствуйте!')
+                handeTextTooltip('С возвращением!')
                 navigate('/movies')
             })
             .catch((err) => {
                 handleStatus(false)
-                err.name === 'ValidationError'
+                err.message === 'Validation failed'
                     ? handeTextTooltip(
                           'Переданы некорректные данные пользователя'
                       )
-                    : handeTextTooltip(err)
+                    : handeTextTooltip(err.message)
                 handleTooltip(true)
             })
     }
