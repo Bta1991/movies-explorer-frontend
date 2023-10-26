@@ -31,7 +31,7 @@ const Portfolio = () => {
                     <li className="portfolio__item">
                         <a
                             className="portfolio__link-wrapper"
-                            href="https://aaa.nomoredomainsicu.ru/"
+                            href="https://github.com/Bta1991/react-mesto-api-full-gha"
                             target="_blank"
                             rel="noreferrer"
                         >

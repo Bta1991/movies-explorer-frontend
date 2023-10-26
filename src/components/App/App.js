@@ -40,7 +40,7 @@ function App() {
             }
         } catch (err) {
             if (err instanceof Error) {
-                console.log(err)
+                // console.log(err)
                 setLoggedIn(false)
             }
         }
@@ -79,17 +79,55 @@ function App() {
     const goBack = () => {
         navigate(-1, { replace: true })
     }
-    const checkToken = () => {
-        verifyToken()
-            .then((res) => {
-                setLoggedIn(true)
-                navigate('/')
-            })
-            .catch((err) => {
-                setLoggedIn(false)
-                console.log(err)
-            })
+
+    useEffect(() => {
+        // Проверяем наличие токена в куки чтобы не проверять его каждый раз
+        const token = getCookie('token')
+
+        if (token) {
+            // Если токен найден, вызываем функцию проверки
+            verifyToken()
+                .then((res) => {
+                    setLoggedIn(true)
+                    // navigate('/')
+                })
+                .catch((err) => {
+                    handleSignout()
+                    // setLoggedIn(false)
+                    // console.log(err)
+                })
+        }
+    }, [])
+
+    function getCookie(cookieName) {
+        const name = cookieName + '='
+        const decodedCookie = decodeURIComponent(document.cookie)
+        const cookieArray = decodedCookie.split(';')
+
+        for (let i = 0; i < cookieArray.length; i++) {
+            const cookie = cookieArray[i].trim()
+            if (cookie.startsWith(name)) {
+                return cookie.substring(name.length)
+            }
+        }
+        return ''
     }
+
+    // const checkToken = () => {
+    //     verifyToken()
+    //         .then((res) => {
+    //             setLoggedIn(true)
+    //             navigate('/')
+    //         })
+    //         .catch((err) => {
+    //             setLoggedIn(false)
+    //             console.log(err)
+    //         })
+    // }
+
+    // useEffect(() => {
+    //     checkToken()
+    // }, [])
 
     const handleSignout = () => {
         logout()
@@ -104,10 +142,6 @@ function App() {
                 console.log(err)
             })
     }
-
-    useEffect(() => {
-        checkToken()
-    }, [])
 
     const handleCardLike = async (movie) => {
         try {
@@ -185,6 +219,7 @@ function App() {
                         path="/signup"
                         element={
                             <Register
+                                handleLogin={setLoggedIn}
                                 handleTooltip={setTooltipOpen}
                                 handleStatus={setStatusTooltip}
                                 handeTextTooltip={setTextTooltip}

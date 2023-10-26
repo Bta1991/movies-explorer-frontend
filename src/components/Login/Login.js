@@ -40,7 +40,7 @@ const Login = ({
                 handleStatus(true)
                 handleTooltip(true)
                 handeTextTooltip('Здравствуйте!')
-                navigate('/')
+                navigate('/movies')
             })
             .catch((err) => {
                 handleStatus(false)
@@ -86,9 +86,7 @@ const Login = ({
                 </button>
 
                 <div className="login__link-area">
-                    <p className="login__link-text">
-                        Ещё не зарегистрированы?
-                    </p>
+                    <p className="login__link-text">Ещё не зарегистрированы?</p>
                     <Link to="/signup" className="login__link">
                         Регистрация
                     </Link>

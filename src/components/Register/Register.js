@@ -2,9 +2,14 @@ import './Register.css'
 import Logo from '../Header/Logo/Logo'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { register } from '../../utils/Auth'
+import { register, authorize } from '../../utils/Auth'
 
-const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
+const Register = ({
+    handleLogin,
+    handleTooltip,
+    handleStatus,
+    handeTextTooltip,
+}) => {
     const [values, setFormValue] = useState({
         name: '',
         email: '',
@@ -33,7 +38,11 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
 
         register(name, email, password)
             .then((data) => {
-                navigate('/signin')
+                return authorize(email, password)
+            })
+            .then((token) => {
+                navigate('/movies')
+                handleLogin(true)
                 handleStatus(true)
                 handleTooltip(true)
                 handeTextTooltip('Вы успешно зарегистрировались!')
@@ -44,6 +53,26 @@ const Register = ({ handleTooltip, handleStatus, handeTextTooltip }) => {
                 handleTooltip(true)
             })
     }
+
+    // const auth = () => {
+    //     authorize(email, password)
+    //         .then((data) => {
+    //             handleLogin(true)
+    //             handleStatus(true)
+    //             handleTooltip(true)
+    //             handeTextTooltip('Здравствуйте!')
+    //             navigate('/')
+    //         })
+    //         .catch((err) => {
+    //             handleStatus(false)
+    //             err.name === 'ValidationError'
+    //                 ? handeTextTooltip(
+    //                       'Переданы некорректные данные пользователя'
+    //                   )
+    //                 : handeTextTooltip(err)
+    //             handleTooltip(true)
+    //         })
+    // }
 
     return (
         <main className="register">
