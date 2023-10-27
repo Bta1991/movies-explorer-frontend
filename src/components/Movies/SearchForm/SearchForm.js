@@ -13,7 +13,7 @@ const SearchForm = ({ onSearchMovies, onFilter, isShortMovies }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (query.trim().length === 0) {
+        if (query.trim().length === 0 || query === EMPTY_SEARCH_MESSAGE) {
             setQuery(EMPTY_SEARCH_MESSAGE)
         } else {
             onSearchMovies(query)
@@ -21,8 +21,8 @@ const SearchForm = ({ onSearchMovies, onFilter, isShortMovies }) => {
     }
 
     useEffect(() => {
-        if (path === '/movies' && localStorage.getItem('movieSearch')) {
-            const localQuery = localStorage.getItem('movieSearch')
+        if (path === '/movies' && localStorage.getItem('searchMovies')) {
+            const localQuery = localStorage.getItem('searchMovies')
             setQuery(localQuery)
         }
     }, [path])

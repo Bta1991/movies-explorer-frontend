@@ -14,14 +14,14 @@ const MoviesCardList = (props) => {
         cards,
         isSavedFilms,
         isLoading,
-        isReqErr,
+        isRequestErr,
         isNotFound,
         onCardLike,
         savedMovies,
         onCardDelete,
     } = props
-    const path = useLocation().pathname
 
+    const path = useLocation().pathname
     const [shownMovies, setShownMovies] = useState(0)
 
     const shownCount = () => {
@@ -30,18 +30,9 @@ const MoviesCardList = (props) => {
 
     useEffect(() => {
         shownCount()
-    }, [])
-
-    useEffect(() => {
-        shownCount()
-    }, [cards.length])
-
-    useEffect(() => {
-        setTimeout(() => {
-            window.addEventListener('resize', shownCount)
-        }, 500)
+        window.addEventListener('resize', shownCount)
         return () => window.removeEventListener('resize', shownCount)
-    }, [])
+    }, [cards.length])
 
     const showMore = () => {
         setShownMovies(shownMovies + calcQuantity().add)
@@ -56,14 +47,14 @@ const MoviesCardList = (props) => {
     return (
         <section className="cards" aria-label="Список карт фильмов">
             {<Preloader isOpen={isLoading} />}
-            {isNotFound && !isLoading && (
+            {isNotFound && (
                 <p className="cards__search-error">{NOT_FOUND_MESSAGE}</p>
             )}
-            {isReqErr && !isLoading && (
+            {isRequestErr && (
                 <p className="cards__search-error">{ERROR_SEARCH_MESSAGE}</p>
             )}
 
-            {!isLoading && !isReqErr && !isNotFound && (
+            {!isLoading && !isRequestErr && !isNotFound && (
                 <>
                     {path === '/movies' ? (
                         <>

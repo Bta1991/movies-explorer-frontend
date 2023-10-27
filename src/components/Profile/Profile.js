@@ -6,7 +6,7 @@ import { EMAIL_REGEX } from '../../utils/constants'
 
 const Profile = ({ onLogout, onUpdateUser }) => {
     const currentUser = useContext(CurrentUserContext)
-    const [inEditMode, setInEditMode] = useState(false)
+    const [editMode, setEditMode] = useState(false)
     const { values, handleChange, setValues } = useForm({
         name: '',
         email: '',
@@ -27,8 +27,11 @@ const Profile = ({ onLogout, onUpdateUser }) => {
         })
     }
 
+    const hasChanged =
+        currentUser.name === values.name && currentUser.email === values.email
+
     const handleEditClick = () => {
-        setInEditMode(true)
+        setEditMode(true)
     }
 
     return (
@@ -52,7 +55,7 @@ const Profile = ({ onLogout, onUpdateUser }) => {
                                 onChange={handleChange}
                                 minLength={2}
                                 maxLength={30}
-                                disabled={!inEditMode}
+                                disabled={!editMode}
                                 required
                             />
                         </div>
@@ -68,17 +71,18 @@ const Profile = ({ onLogout, onUpdateUser }) => {
                                 value={values.email || ''}
                                 onChange={handleChange}
                                 pattern={EMAIL_REGEX.source}
-                                disabled={!inEditMode}
+                                disabled={!editMode}
                                 required
                             />
                         </div>
                     </fieldset>
                     <div className="profile__buttons">
                         <p className="profile__message"></p>
-                        {inEditMode ? (
+                        {editMode ? (
                             <button
                                 className="profile__save-button"
                                 type="submit"
+                                disabled={hasChanged}
                             >
                                 Сохранить
                             </button>
@@ -91,15 +95,15 @@ const Profile = ({ onLogout, onUpdateUser }) => {
                                 >
                                     Редактировать
                                 </button>
-                                <button
-                                    className="profile__exit-button"
-                                    type="button"
-                                    onClick={onLogout}
-                                >
-                                    Выйти из аккаунта
-                                </button>
                             </>
                         )}
+                        <button
+                            className="profile__exit-button"
+                            type="button"
+                            onClick={onLogout}
+                        >
+                            Выйти из аккаунта
+                        </button>
                     </div>
                 </form>
             </section>
