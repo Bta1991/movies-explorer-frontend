@@ -11,6 +11,8 @@ export const CARDS_DESKTOP = { initial: 12, add: 3 }
 export const CARDS_TABLET = { initial: 8, add: 2 }
 export const CARDS_MOBILE = { initial: 5, add: 2 }
 export const SHORTS_DURATION = 40
+export const EMAIL_REGEX = '[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'
+
 export const SUCCESS_PROFILE_MESSAGE = 'Профиль успешно изменен'
 export const EMPTY_SEARCH_MESSAGE = 'Нужно ввести ключевое слово'
 export const FIRST_SEARCH_MESSAGE = 'Введите запрос для поиска любимого фильма'

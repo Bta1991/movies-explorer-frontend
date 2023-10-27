@@ -3,6 +3,7 @@ import Logo from '../Header/Logo/Logo'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { register, authorize } from '../../utils/Auth'
+import { EMAIL_REGEX } from '../../utils/constants'
 
 const Register = ({
     handleLogin,
@@ -44,8 +45,8 @@ const Register = ({
                 navigate('/movies')
                 handleLogin(true)
                 handleStatus(true)
-                handleTooltip(true)
                 handeTextTooltip('Вы успешно зарегистрировались!')
+                handleTooltip(true)
             })
             .catch((err) => {
                 err.message === 'Validation failed'
@@ -86,7 +87,7 @@ const Register = ({
                     type="email"
                     value={values.email}
                     onChange={handleChange}
-                    pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+                    pattern={EMAIL_REGEX.source}
                 />
                 <label className="register__label">Пароль</label>
                 <input

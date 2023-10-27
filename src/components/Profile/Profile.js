@@ -2,6 +2,7 @@ import './Profile.css'
 import { useContext, useState, useEffect } from 'react'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
 import { useForm } from '../../hooks/useForm'
+import { EMAIL_REGEX } from '../../utils/constants'
 
 const Profile = ({ onLogout, onUpdateUser }) => {
     const currentUser = useContext(CurrentUserContext)
@@ -12,11 +13,11 @@ const Profile = ({ onLogout, onUpdateUser }) => {
     })
 
     useEffect(() => {
-      setValues({
-          name: currentUser.name,
-          email: currentUser.email,
-      })
-  }, [currentUser])
+        setValues({
+            name: currentUser.name,
+            email: currentUser.email,
+        })
+    }, [currentUser])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -33,13 +34,10 @@ const Profile = ({ onLogout, onUpdateUser }) => {
     return (
         <main className="profile">
             <section className="profile__inner">
-                <h1 className="profile__title">
-                    Привет, {currentUser.name}!
-                </h1>
+                <h1 className="profile__title">Привет, {currentUser.name}!</h1>
                 <form
                     className="profile__form"
                     name="profile-form"
-                    noValidate
                     onSubmit={handleSubmit}
                 >
                     <fieldset className="profile__form-fields">
@@ -57,7 +55,6 @@ const Profile = ({ onLogout, onUpdateUser }) => {
                                 disabled={!inEditMode}
                                 required
                             />
-                            <span className="profile__input-error-message"></span>
                         </div>
                         <div className="profile__field">
                             <label className="profile__input-label">
@@ -70,11 +67,10 @@ const Profile = ({ onLogout, onUpdateUser }) => {
                                 placeholder="Email"
                                 value={values.email || ''}
                                 onChange={handleChange}
-                                pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+                                pattern={EMAIL_REGEX.source}
                                 disabled={!inEditMode}
                                 required
                             />
-                            <span className="profile__input-error-message"></span>
                         </div>
                     </fieldset>
                     <div className="profile__buttons">

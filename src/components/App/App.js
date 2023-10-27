@@ -1,7 +1,7 @@
 import './App.css'
 
 import React, { useState, useEffect, useCallback } from 'react'
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import Main from '../Main/Main'
@@ -49,8 +49,15 @@ function App() {
         try {
             const userData = await apiuser.setUserInfo(name, email)
             setCurrentUser(userData)
+            setStatusTooltip(true)
+            setTextTooltip('Данные успешно изменены!')
+            setTooltipOpen(true)
         } catch (err) {
-            console.error(err)
+            err.message === 'Validation failed'
+                ? setTextTooltip('Переданы некорректные данные пользователя')
+                : setTextTooltip(err.message)
+            setStatusTooltip(false)
+            setTooltipOpen(true)
         }
     }
 
@@ -96,6 +103,7 @@ function App() {
                     // console.log(err)
                 })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function getCookie(cookieName) {
@@ -111,22 +119,6 @@ function App() {
         }
         return ''
     }
-
-    // const checkToken = () => {
-    //     verifyToken()
-    //         .then((res) => {
-    //             setLoggedIn(true)
-    //             navigate('/')
-    //         })
-    //         .catch((err) => {
-    //             setLoggedIn(false)
-    //             console.log(err)
-    //         })
-    // }
-
-    // useEffect(() => {
-    //     checkToken()
-    // }, [])
 
     const handleSignout = () => {
         logout()
@@ -200,6 +192,9 @@ function App() {
                                 Component={Profile}
                                 onLogout={handleSignout}
                                 onUpdateUser={handleUpdateUser}
+                                handleTooltip={setTooltipOpen}
+                                handleStatus={setStatusTooltip}
+                                handeTextTooltip={setTextTooltip}
                             />
                         }
                     />

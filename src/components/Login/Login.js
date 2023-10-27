@@ -3,6 +3,7 @@ import Logo from '../Header/Logo/Logo'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { authorize } from '../../utils/Auth'
+import { EMAIL_REGEX } from '../../utils/constants'
 
 const Login = ({
     handleLogin,
@@ -38,8 +39,8 @@ const Login = ({
             .then((data) => {
                 handleLogin(true)
                 handleStatus(true)
-                handleTooltip(true)
                 handeTextTooltip('С возвращением!')
+                handleTooltip(true)
                 navigate('/movies')
             })
             .catch((err) => {
@@ -69,6 +70,7 @@ const Login = ({
                     name="email"
                     value={formValue.email}
                     onChange={handleChange}
+                    pattern={EMAIL_REGEX.source}
                 />
                 <label className="login__label">Пароль</label>
                 <input
