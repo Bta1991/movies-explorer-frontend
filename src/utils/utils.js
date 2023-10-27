@@ -1,4 +1,6 @@
 import {
+    DESKTOP_SIZE,
+    TABLET_SIZE,
     CARDS_DESKTOP,
     CARDS_TABLET,
     CARDS_MOBILE,
@@ -7,10 +9,10 @@ import {
 
 export const calcQuantity = () => {
     const pageWidth = document.documentElement.clientWidth
-    if (pageWidth > 1270) {
+    if (pageWidth > DESKTOP_SIZE) {
         return CARDS_DESKTOP
     }
-    if (pageWidth > 700) {
+    if (pageWidth > TABLET_SIZE) {
         return CARDS_TABLET
     }
     return CARDS_MOBILE

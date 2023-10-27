@@ -7,6 +7,9 @@ export const API_OPTIONS = {
     },
     credentials: 'include',
 }
+
+export const DESKTOP_SIZE = 1275
+export const TABLET_SIZE = 767
 export const CARDS_DESKTOP = { initial: 12, add: 3 }
 export const CARDS_TABLET = { initial: 8, add: 2 }
 export const CARDS_MOBILE = { initial: 5, add: 2 }
