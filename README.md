@@ -17,5 +17,9 @@
 `npm run start` — запускает приложение
 
 -   Дизайн макета - `dark-4`
--   Ссылка на API бекенда регистрации - https://api.diplom.nomoredomainsrocks.ru
 -   IP адресс 62.84.124.214
+-
+-   Ссылка на API бекенда регистрации - https://api.diplom.nomoredomainsrocks.ru
+-   Ссылка на сайт - https://diplom.nomoredomainsrocks.ru/
+-   Ссылка на pull-реквест - https://github.com/Bta1991/movies-explorer-frontend/pull/2
+
