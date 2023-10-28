@@ -1,6 +1,6 @@
 import './Login.css'
 import Logo from '../Header/Logo/Logo'
-import React, { useState } from 'react'
+import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { authorize } from '../../utils/Auth'
 import { EMAIL_REGEX } from '../../utils/constants'

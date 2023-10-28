@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { EMAIL_REGEX, NAME_REGEX } from '../utils/constants'
 
 //хук управления формой
 export function useForm(inputValues) {
@@ -23,6 +24,17 @@ export function useFormWithValidation() {
         const name = target.name
         const value = target.value
         setValues({ ...values, [name]: value })
+
+        // Установка пользовательского сообщения об ошибке для атрибута pattern
+        if (name === 'name') {
+            if (!value.match(NAME_REGEX)) {
+                target.setCustomValidity(
+                    'Используйте только буквы, пробелы и дефисы'
+                )
+            } else {
+                target.setCustomValidity('')
+            }
+        }
         setErrors({ ...errors, [name]: target.validationMessage })
         setIsValid(target.closest('form').checkValidity())
     }
