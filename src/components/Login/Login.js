@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { authorize } from '../../utils/Auth'
 import { EMAIL_REGEX } from '../../utils/constants'
+import { useFormWithValidation } from '../../hooks/useForm'
 
 const Login = ({
     handleLogin,
@@ -11,29 +12,14 @@ const Login = ({
     handleStatus,
     handeTextTooltip,
 }) => {
-    const [formValue, setFormValue] = useState({
-        email: '',
-        password: '',
-    })
+    const { values, errors, isValid, handleChange } = useFormWithValidation()
 
     const navigate = useNavigate()
 
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setFormValue({
-            ...formValue,
-            [name]: value,
-        })
-    }
-
     const handleSubmit = (e) => {
-        const { email, password } = formValue
+        const { email, password } = values
 
         e.preventDefault()
-
-        if (!email || !password) {
-            return
-        }
 
         authorize(email, password)
             .then((data) => {
@@ -64,26 +50,37 @@ const Login = ({
                 <label className="login__label">E-mail</label>
                 <input
                     required
-                    className="login__input"
+                    className={`login__input ${
+                        errors.email && 'login__input_error'
+                    }`}
                     id="email"
                     type="email"
                     name="email"
-                    value={formValue.email}
+                    value={values.email || ''}
                     onChange={handleChange}
                     pattern={EMAIL_REGEX.source}
                 />
+                <span className="login__error">{errors.email || ''}</span>
                 <label className="login__label">Пароль</label>
                 <input
                     required
-                    className="login__input login__input-gap"
+                    className={`login__input ${
+                        errors.password && 'login__input_error'
+                    }`}
                     id="password"
                     type="password"
                     name="password"
-                    value={formValue.password}
+                    value={values.password || ''}
                     onChange={handleChange}
                     minLength={3}
                 />
-                <button type="submit" className="login__button">
+                <span className="register__error">{errors.password || ''}</span>
+
+                <button
+                    type="submit"
+                    className="login__button"
+                    disabled={!isValid}
+                >
                     Войти
                 </button>
 

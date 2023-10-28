@@ -1,9 +1,10 @@
 import './Register.css'
 import Logo from '../Header/Logo/Logo'
-import React, { useState } from 'react'
+import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { register, authorize } from '../../utils/Auth'
-import { EMAIL_REGEX } from '../../utils/constants'
+import { EMAIL_REGEX, NAME_REGEX } from '../../utils/constants'
+import { useFormWithValidation } from '../../hooks/useForm'
 
 const Register = ({
     handleLogin,
@@ -11,31 +12,13 @@ const Register = ({
     handleStatus,
     handeTextTooltip,
 }) => {
-    const [values, setFormValue] = useState({
-        name: '',
-        email: '',
-        password: '',
-    })
-
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setFormValue((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }))
-    }
+    const { values, errors, isValid, handleChange } = useFormWithValidation()
 
     const navigate = useNavigate()
-    const [errorMessage, setErrorMessage] = useState('')
 
     const handleSubmit = (e) => {
         const { name, email, password } = values
-
         e.preventDefault()
-        if (!name || !email || !password) {
-            setErrorMessage('Заполните все поля!')
-            return
-        }
 
         register(name, email, password)
             .then((data) => {
@@ -69,40 +52,54 @@ const Register = ({
                 <label className="register__label">Имя</label>
                 <input
                     required
-                    className="register__input"
+                    className={`register__input ${
+                        errors.name && 'register__input_error'
+                    }`}
                     id="name"
                     name="name"
                     type="text"
-                    value={values.name}
+                    value={values.name || ''}
                     onChange={handleChange}
+                    pattern={NAME_REGEX.source}
                     minLength={2}
                     maxLength={30}
                 />
+                <span className="register__error">{errors.name || ''}</span>
                 <label className="register__label">E-mail</label>
                 <input
                     required
-                    className="register__input"
+                    className={`register__input ${
+                        errors.email && 'register__input_error'
+                    }`}
                     id="email"
                     name="email"
                     type="email"
-                    value={values.email}
+                    value={values.email || ''}
                     onChange={handleChange}
                     pattern={EMAIL_REGEX.source}
                 />
+                <span className="register__error">{errors.email || ''}</span>
                 <label className="register__label">Пароль</label>
                 <input
                     required
-                    className="register__input"
+                    className={`register__input ${
+                        errors.password && 'register__input_error'
+                    }`}
                     id="password"
                     name="password"
                     type="password"
-                    value={values.password}
+                    value={values.password || ''}
                     onChange={handleChange}
                     minLength={3}
                 />
+                <span className="register__error">{errors.password || ''}</span>
 
-                <button type="submit" className="register__button">
-                    {errorMessage || 'Зарегистрироваться'}
+                <button
+                    type="submit"
+                    className="register__button"
+                    disabled={!isValid}
+                >
+                    Зарегистрироваться
                 </button>
 
                 <div className="register__link-area">

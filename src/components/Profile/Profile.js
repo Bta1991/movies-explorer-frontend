@@ -1,23 +1,15 @@
 import './Profile.css'
 import { useContext, useState, useEffect } from 'react'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
-import { useForm } from '../../hooks/useForm'
-import { EMAIL_REGEX } from '../../utils/constants'
+import { useFormWithValidation } from '../../hooks/useForm'
+import { EMAIL_REGEX, NAME_REGEX } from '../../utils/constants'
 
 const Profile = ({ onLogout, onUpdateUser }) => {
     const currentUser = useContext(CurrentUserContext)
-    const [editMode, setEditMode] = useState(false)
-    const { values, handleChange, setValues } = useForm({
-        name: '',
-        email: '',
-    })
+    const { values, errors, isValid, handleChange, resetForm } =
+        useFormWithValidation()
 
-    useEffect(() => {
-        setValues({
-            name: currentUser.name,
-            email: currentUser.email,
-        })
-    }, [currentUser])
+    const [editMode, setEditMode] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -27,8 +19,15 @@ const Profile = ({ onLogout, onUpdateUser }) => {
         })
     }
 
-    const hasChanged =
-        currentUser.name === values.name && currentUser.email === values.email
+    useEffect(() => {
+        if (currentUser) {
+            resetForm(currentUser, {}, true)
+        }
+    }, [currentUser, resetForm])
+
+    const canChanged =
+        !isValid ||
+        (currentUser.name === values.name && currentUser.email === values.email)
 
     const handleEditClick = () => {
         setEditMode(true)
@@ -47,7 +46,9 @@ const Profile = ({ onLogout, onUpdateUser }) => {
                         <div className="profile__field">
                             <label className="profile__input-label">Имя</label>
                             <input
-                                className="profile__input"
+                                className={`profile__input ${
+                                    errors.name && 'profile__input_error'
+                                }`}
                                 name="name"
                                 type="text"
                                 placeholder="Имя"
@@ -55,16 +56,22 @@ const Profile = ({ onLogout, onUpdateUser }) => {
                                 onChange={handleChange}
                                 minLength={2}
                                 maxLength={30}
+                                pattern={NAME_REGEX.source}
                                 disabled={!editMode}
                                 required
                             />
+                            <span className="profile__input-error">
+                                {errors.name || ''}
+                            </span>
                         </div>
                         <div className="profile__field">
                             <label className="profile__input-label">
                                 E-mail
                             </label>
                             <input
-                                className="profile__input"
+                                className={`profile__input ${
+                                    errors.email && 'profile__input_error'
+                                }`}
                                 name="email"
                                 type="email"
                                 placeholder="Email"
@@ -74,15 +81,17 @@ const Profile = ({ onLogout, onUpdateUser }) => {
                                 disabled={!editMode}
                                 required
                             />
+                            <span className="profile__input-error">
+                                {errors.email || ''}
+                            </span>
                         </div>
                     </fieldset>
                     <div className="profile__buttons">
-                        <p className="profile__message"></p>
                         {editMode ? (
                             <button
                                 className="profile__save-button"
                                 type="submit"
-                                disabled={hasChanged}
+                                disabled={canChanged}
                             >
                                 Сохранить
                             </button>

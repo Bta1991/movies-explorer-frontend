@@ -1,7 +1,7 @@
 import './App.css'
 
 import React, { useState, useEffect, useCallback } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import Main from '../Main/Main'
@@ -28,6 +28,11 @@ function App() {
     const closeAllPopups = useCallback(() => {
         setTooltipOpen(false)
     }, [])
+
+    useEffect(() => {
+        authUser()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoggedIn])
 
     const authUser = async () => {
         try {
@@ -62,11 +67,6 @@ function App() {
     }
 
     useEffect(() => {
-        authUser()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoggedIn])
-
-    useEffect(() => {
         if (isLoggedIn) {
             getSavedMovies()
         }
@@ -95,12 +95,9 @@ function App() {
             verifyToken()
                 .then((res) => {
                     setLoggedIn(true)
-                    // navigate('/movies')
                 })
                 .catch((err) => {
                     handleSignout()
-                    // setLoggedIn(false)
-                    // console.log(err)
                 })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -130,7 +127,7 @@ function App() {
                 navigate('/', { replace: true })
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err.message)
             })
     }
 
@@ -201,23 +198,31 @@ function App() {
                     <Route
                         path="/signin"
                         element={
-                            <Login
-                                handleLogin={setLoggedIn}
-                                handleTooltip={setTooltipOpen}
-                                handleStatus={setStatusTooltip}
-                                handeTextTooltip={setTextTooltip}
-                            />
+                            !isLoggedIn ? (
+                                <Login
+                                    handleLogin={setLoggedIn}
+                                    handleTooltip={setTooltipOpen}
+                                    handleStatus={setStatusTooltip}
+                                    handeTextTooltip={setTextTooltip}
+                                />
+                            ) : (
+                                <Navigate to="/movies" replace />
+                            )
                         }
                     />
                     <Route
                         path="/signup"
                         element={
-                            <Register
-                                handleLogin={setLoggedIn}
-                                handleTooltip={setTooltipOpen}
-                                handleStatus={setStatusTooltip}
-                                handeTextTooltip={setTextTooltip}
-                            />
+                            !isLoggedIn ? (
+                                <Register
+                                    handleLogin={setLoggedIn}
+                                    handleTooltip={setTooltipOpen}
+                                    handleStatus={setStatusTooltip}
+                                    handeTextTooltip={setTextTooltip}
+                                />
+                            ) : (
+                                <Navigate to="/movies" replace />
+                            )
                         }
                     />
                     <Route path="*" element={<ErrorPage goBack={goBack} />} />
