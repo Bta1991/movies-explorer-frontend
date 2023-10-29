@@ -64,7 +64,7 @@
 
 .register__button {
     margin: 0 auto;
-    margin-top: 140px;
+    margin-top: 144px;
     padding: 0;
     width: 396px;
     height: 45px;
@@ -109,7 +109,7 @@
 
 @media screen and (max-width: 1000px) {
     .register__header {
-        margin-top: 235px;
+        margin-top: 230px;
     }
 }
 
