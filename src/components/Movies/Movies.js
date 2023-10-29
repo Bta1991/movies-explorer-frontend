@@ -1,3 +1,4 @@
+import './Movies.css'
 import React, { useState, useEffect, useCallback } from 'react'
 import MoviesCardList from './MoviesCardList/MoviesCardList'
 import SearchForm from './SearchForm/SearchForm'
