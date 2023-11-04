@@ -1,22 +1,15 @@
 import './Profile.css'
 import { useContext, useState, useEffect } from 'react'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
-import { useForm } from '../../hooks/useForm'
+import { useFormWithValidation } from '../../hooks/useForm'
+import { EMAIL_REGEX, NAME_REGEX } from '../../utils/constants'
 
 const Profile = ({ onLogout, onUpdateUser }) => {
     const currentUser = useContext(CurrentUserContext)
-    const [inEditMode, setInEditMode] = useState(false)
-    const { values, handleChange, setValues } = useForm({
-        name: '',
-        email: '',
-    })
+    const { values, errors, isValid, handleChange, resetForm } =
+        useFormWithValidation()
 
-    useEffect(() => {
-      setValues({
-          name: currentUser.name,
-          email: currentUser.email,
-      })
-  }, [currentUser])
+    const [editMode, setEditMode] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -26,27 +19,36 @@ const Profile = ({ onLogout, onUpdateUser }) => {
         })
     }
 
+    useEffect(() => {
+        if (currentUser) {
+            resetForm(currentUser, {}, true)
+        }
+    }, [currentUser, resetForm])
+
+    const canChanged =
+        !isValid ||
+        (currentUser.name === values.name && currentUser.email === values.email)
+
     const handleEditClick = () => {
-        setInEditMode(true)
+        setEditMode(true)
     }
 
     return (
         <main className="profile">
             <section className="profile__inner">
-                <h1 className="profile__title">
-                    Привет, {currentUser.name}!
-                </h1>
+                <h1 className="profile__title">Привет, {currentUser.name}!</h1>
                 <form
                     className="profile__form"
                     name="profile-form"
-                    noValidate
                     onSubmit={handleSubmit}
                 >
                     <fieldset className="profile__form-fields">
                         <div className="profile__field">
                             <label className="profile__input-label">Имя</label>
                             <input
-                                className="profile__input"
+                                className={`profile__input ${
+                                    errors.name && 'profile__input_error'
+                                }`}
                                 name="name"
                                 type="text"
                                 placeholder="Имя"
@@ -54,35 +56,42 @@ const Profile = ({ onLogout, onUpdateUser }) => {
                                 onChange={handleChange}
                                 minLength={2}
                                 maxLength={30}
-                                disabled={!inEditMode}
+                                pattern={NAME_REGEX.source}
+                                disabled={!editMode}
                                 required
                             />
-                            <span className="profile__input-error-message"></span>
+                            <span className="profile__input-error">
+                                {errors.name || ''}
+                            </span>
                         </div>
                         <div className="profile__field">
                             <label className="profile__input-label">
                                 E-mail
                             </label>
                             <input
-                                className="profile__input"
+                                className={`profile__input ${
+                                    errors.email && 'profile__input_error'
+                                }`}
                                 name="email"
                                 type="email"
                                 placeholder="Email"
                                 value={values.email || ''}
                                 onChange={handleChange}
-                                pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
-                                disabled={!inEditMode}
+                                pattern={EMAIL_REGEX.source}
+                                disabled={!editMode}
                                 required
                             />
-                            <span className="profile__input-error-message"></span>
+                            <span className="profile__input-error">
+                                {errors.email || ''}
+                            </span>
                         </div>
                     </fieldset>
                     <div className="profile__buttons">
-                        <p className="profile__message"></p>
-                        {inEditMode ? (
+                        {editMode ? (
                             <button
                                 className="profile__save-button"
                                 type="submit"
+                                disabled={canChanged}
                             >
                                 Сохранить
                             </button>
@@ -95,15 +104,15 @@ const Profile = ({ onLogout, onUpdateUser }) => {
                                 >
                                     Редактировать
                                 </button>
-                                <button
-                                    className="profile__exit-button"
-                                    type="button"
-                                    onClick={onLogout}
-                                >
-                                    Выйти из аккаунта
-                                </button>
                             </>
                         )}
+                        <button
+                            className="profile__exit-button"
+                            type="button"
+                            onClick={onLogout}
+                        >
+                            Выйти из аккаунта
+                        </button>
                     </div>
                 </form>
             </section>

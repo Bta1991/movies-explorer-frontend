@@ -1,63 +1,64 @@
 import './Movies.css'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import MoviesCardList from './MoviesCardList/MoviesCardList'
 import SearchForm from './SearchForm/SearchForm'
 import * as moviesApi from '../../utils/MoviesApi'
 import { filterMovies, filterDuration } from '../../utils/utils'
 
 const Movies = ({ onCardLike, savedMovies, onCardDelete }) => {
-    const [isLoading, setIsLoading] = useState(false) // прелоадер
-    const [initialMovies, setInitialMovies] = useState([]) // начальные фильмы
-    const [filteredMovies, setFilteredMovies] = useState([]) // поиск фильмов
-    const [isShortMovies, setIsShortMovies] = useState(false) // короткометражки
-    const [isRequestErr, setRequestErr] = useState(false) // ошибка api
-    const [isNotFound, setIsNotFound] = useState(false) // фильмы не найдены
+    // Состояния компонента
+    const [isLoading, setIsLoading] = useState(false) // Показывать прелоадер
+    const [initialMovies, setInitialMovies] = useState([]) // Начальные фильмы
+    const [filteredMovies, setFilteredMovies] = useState([]) // Отфильтрованные фильмы
+    const [isShortMovies, setIsShortMovies] = useState(false) // Флаг короткометражных фильмов
+    const [isRequestErr, setRequestErr] = useState(false) // Ошибка API
+    const [isNotFound, setIsNotFound] = useState(false) // Фильмы не найдены
 
-    // поиск фильма
-    const handleFilterMovies = (movies, query, short) => {
+    // Фильтрация фильмов
+    const handleFilterMovies = useCallback((movies, query, short) => {
         const moviesList = filterMovies(movies, query, short)
         setInitialMovies(moviesList)
         setFilteredMovies(short ? filterDuration(moviesList) : moviesList)
         localStorage.setItem('movies', JSON.stringify(moviesList))
         localStorage.setItem('allMovies', JSON.stringify(movies))
-    }
+    }, [])
 
-    // поиск коротких фильмов
-    const handleShortMovies = () => {
+    // Переключение короткометражных фильмов
+    const handleShortMovies = useCallback(() => {
         setIsShortMovies(!isShortMovies)
-        if (!isShortMovies) {
-            setFilteredMovies(filterDuration(initialMovies))
-        } else {
-            setFilteredMovies(initialMovies)
-        }
+        setFilteredMovies(
+            isShortMovies ? initialMovies : filterDuration(initialMovies)
+        )
         localStorage.setItem('shortMovies', !isShortMovies)
-    }
+    }, [isShortMovies, initialMovies])
 
-    // сохраняем фильмы
-    const onSearchMovies = (query) => {
-        localStorage.setItem('movieSearch', query)
-        localStorage.setItem('shortMovies', isShortMovies)
+    // Поиск фильмов
+    const onSearchMovies = useCallback(
+        (query) => {
+            localStorage.setItem('searchMovies', query)
+            localStorage.setItem('shortMovies', isShortMovies)
 
-        if (localStorage.getItem('allMovies')) {
-            const movies = JSON.parse(localStorage.getItem('allMovies'))
-            handleFilterMovies(movies, query, isShortMovies)
-        } else {
-            setIsLoading(true)
-            moviesApi
-                .getFilms()
-                .then((cardsData) => {
-                    handleFilterMovies(cardsData, query, isShortMovies)
-                    setRequestErr(false)
-                })
-                .catch((err) => {
-                    setRequestErr(true)
-                    console.error(err)
-                })
-                .finally(() => {
-                    setIsLoading(false)
-                })
-        }
-    }
+            if (localStorage.getItem('allMovies')) {
+                const movies = JSON.parse(localStorage.getItem('allMovies'))
+                handleFilterMovies(movies, query, isShortMovies)
+            } else {
+                setIsLoading(true)
+                moviesApi
+                    .getFilms()
+                    .then((cardsData) => {
+                        handleFilterMovies(cardsData, query, isShortMovies)
+                        setRequestErr(false)
+                    })
+                    .catch(() => {
+                        setRequestErr(true)
+                    })
+                    .finally(() => {
+                        setIsLoading(false)
+                    })
+            }
+        },
+        [isShortMovies, handleFilterMovies]
+    )
 
     useEffect(() => {
         setIsShortMovies(localStorage.getItem('shortMovies') === 'true')
@@ -76,7 +77,15 @@ const Movies = ({ onCardLike, savedMovies, onCardDelete }) => {
     }, [])
 
     useEffect(() => {
-        setIsNotFound(filteredMovies.length === 0)
+        if (localStorage.getItem('searchMovies')) {
+            if (filteredMovies.length === 0) {
+                setIsNotFound(true)
+            } else {
+                setIsNotFound(false)
+            }
+        } else {
+            setIsNotFound(false)
+        }
     }, [filteredMovies])
 
     return (

@@ -18,13 +18,14 @@
 
 .register__form {
     margin: 0;
+    width: 396px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .register__input {
-    margin: 0 0 30px;
+    margin: 0;
     padding: 0;
     border: none;
     outline: none;
@@ -40,9 +41,21 @@
     border-bottom: 1px solid #4285f4;
 }
 
-.register__input:last-of-type {
-    margin-bottom: 150px;
+.register__input_error {
+    color: #ee3465;
+    border-bottom: 1px solid #ee3465;
 }
+
+.register__error {
+    margin-top: 6px;
+    margin-bottom: 10px;
+    height: 12px;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #ee3465;
+}
+
 .register__label {
     align-self: start;
     font-size: 10px;
@@ -51,6 +64,7 @@
 
 .register__button {
     margin: 0 auto;
+    margin-top: 144px;
     padding: 0;
     width: 396px;
     height: 45px;
@@ -67,6 +81,13 @@
 .register__button:hover {
     opacity: 0.8;
     cursor: pointer;
+}
+
+.register__button:disabled {
+    background-color: transparent;
+    cursor: not-allowed;
+    outline: 1px solid #8b8b8b;
+    color: #8b8b8b;
 }
 
 .register__link {
@@ -88,10 +109,7 @@
 
 @media screen and (max-width: 1000px) {
     .register__header {
-        margin-top: 235px;
-    }
-    .register__input:last-of-type {
-        margin-bottom: 150px;
+        margin-top: 230px;
     }
 }
 
@@ -107,15 +125,16 @@
     }
 
     .register__button {
+        margin-top: 230px;
         width: 260px;
         height: 45px;
         font-size: 12px;
     }
 
+    .register__form {
+        width: 260px;
+    }
     .register__input {
         width: 260px;
     }
-    .register__input:last-of-type {
-      margin-bottom: 240px;
-  }
 }

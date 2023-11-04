@@ -29,6 +29,11 @@ function App() {
         setTooltipOpen(false)
     }, [])
 
+    useEffect(() => {
+        authUser()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoggedIn])
+
     const authUser = async () => {
         try {
             const user = await apiuser.getUserInfo()
@@ -40,7 +45,6 @@ function App() {
             }
         } catch (err) {
             if (err instanceof Error) {
-                console.log(err)
                 setLoggedIn(false)
             }
         }
@@ -50,15 +54,17 @@ function App() {
         try {
             const userData = await apiuser.setUserInfo(name, email)
             setCurrentUser(userData)
+            setStatusTooltip(true)
+            setTextTooltip('Данные успешно изменены!')
+            setTooltipOpen(true)
         } catch (err) {
-            console.error(err)
+            err.message === 'Validation failed'
+                ? setTextTooltip('Переданы некорректные данные пользователя')
+                : setTextTooltip(err.message)
+            setStatusTooltip(false)
+            setTooltipOpen(true)
         }
     }
-
-    useEffect(() => {
-        authUser()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoggedIn])
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -79,16 +85,36 @@ function App() {
     const goBack = () => {
         navigate(-1, { replace: true })
     }
-    const checkToken = () => {
-        verifyToken()
-            .then((res) => {
-                setLoggedIn(true)
-                navigate('/')
-            })
-            .catch((err) => {
-                setLoggedIn(false)
-                console.log(err)
-            })
+
+    useEffect(() => {
+        // Проверяем наличие токена в куки чтобы не проверять его каждый раз
+        const token = getCookie('token')
+
+        if (token) {
+            // Если токен найден, вызываем функцию проверки
+            verifyToken()
+                .then((res) => {
+                    setLoggedIn(true)
+                })
+                .catch((err) => {
+                    handleSignout()
+                })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    function getCookie(cookieName) {
+        const name = cookieName + '='
+        const decodedCookie = decodeURIComponent(document.cookie)
+        const cookieArray = decodedCookie.split(';')
+
+        for (let i = 0; i < cookieArray.length; i++) {
+            const cookie = cookieArray[i].trim()
+            if (cookie.startsWith(name)) {
+                return cookie.substring(name.length)
+            }
+        }
+        return ''
     }
 
     const handleSignout = () => {
@@ -101,13 +127,9 @@ function App() {
                 navigate('/', { replace: true })
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err.message)
             })
     }
-
-    useEffect(() => {
-        checkToken()
-    }, [])
 
     const handleCardLike = async (movie) => {
         try {
@@ -167,28 +189,40 @@ function App() {
                                 Component={Profile}
                                 onLogout={handleSignout}
                                 onUpdateUser={handleUpdateUser}
+                                handleTooltip={setTooltipOpen}
+                                handleStatus={setStatusTooltip}
+                                handeTextTooltip={setTextTooltip}
                             />
                         }
                     />
                     <Route
                         path="/signin"
                         element={
-                            <Login
-                                handleLogin={setLoggedIn}
-                                handleTooltip={setTooltipOpen}
-                                handleStatus={setStatusTooltip}
-                                handeTextTooltip={setTextTooltip}
-                            />
+                            !isLoggedIn ? (
+                                <Login
+                                    handleLogin={setLoggedIn}
+                                    handleTooltip={setTooltipOpen}
+                                    handleStatus={setStatusTooltip}
+                                    handeTextTooltip={setTextTooltip}
+                                />
+                            ) : (
+                                <Navigate to="/movies" replace />
+                            )
                         }
                     />
                     <Route
                         path="/signup"
                         element={
-                            <Register
-                                handleTooltip={setTooltipOpen}
-                                handleStatus={setStatusTooltip}
-                                handeTextTooltip={setTextTooltip}
-                            />
+                            !isLoggedIn ? (
+                                <Register
+                                    handleLogin={setLoggedIn}
+                                    handleTooltip={setTooltipOpen}
+                                    handleStatus={setStatusTooltip}
+                                    handeTextTooltip={setTextTooltip}
+                                />
+                            ) : (
+                                <Navigate to="/movies" replace />
+                            )
                         }
                     />
                     <Route path="*" element={<ErrorPage goBack={goBack} />} />

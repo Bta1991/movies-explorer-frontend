@@ -1,32 +1,35 @@
+import { API_URL } from './constants'
+
 class MainApi {
     constructor(data) {
         this._baseUrl = data.baseUrl
         this._headers = data.headers
     }
 
-    _checkResponse(res) {
-        return res.ok
-            ? res.json()
-            : Promise.reject(`Ошибка получения данных: ${res.status}`)
+    handleResponse(res) {
+        if (res.ok) {
+            return res.json()
+        } else {
+            return res.json().then((error) => {
+                return Promise.reject(error)
+            })
+        }
     }
 
     getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
             credentials: 'include',
             headers: this._headers,
-        }).then(this._checkResponse)
+        }).then(this.handleResponse)
     }
 
-    setUserInfo(data) {
+    setUserInfo(name, email) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             credentials: 'include',
             headers: this._headers,
-            body: JSON.stringify({
-                name: data.name,
-                email: data.email,
-            }),
-        }).then(this._checkResponse)
+            body: JSON.stringify({ name, email }),
+        }).then(this.handleResponse)
     }
 
     getMovies() {
@@ -34,7 +37,7 @@ class MainApi {
             method: 'GET',
             credentials: 'include',
             headers: this._headers,
-        }).then(this._checkResponse)
+        }).then(this.handleResponse)
     }
 
     saveMovie(data) {
@@ -43,7 +46,7 @@ class MainApi {
             credentials: 'include',
             headers: this._headers,
             body: JSON.stringify(data),
-        }).then(this._checkResponse)
+        }).then(this.handleResponse)
     }
 
     deleteMovie(id) {
@@ -51,12 +54,12 @@ class MainApi {
             method: 'DELETE',
             credentials: 'include',
             headers: this._headers,
-        }).then(this._checkResponse)
+        }).then(this.handleResponse)
     }
 }
 
 const apiuser = new MainApi({
-    baseUrl: 'https://api.diplom.nomoredomainsrocks.ru',
+    baseUrl: API_URL,
     headers: {
         'Content-Type': 'application/json',
     },

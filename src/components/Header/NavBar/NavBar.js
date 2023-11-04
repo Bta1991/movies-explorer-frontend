@@ -30,6 +30,7 @@ const NavBar = ({ path }) => {
                     isBurgerOpened ? 'navbar__burger_closed' : ''
                 }`}
                 type="button"
+                aria-label="Кнопка меню"
                 onClick={onClickBurger}
             />
 
