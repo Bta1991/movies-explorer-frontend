@@ -61,6 +61,7 @@ const Register = ({
                     value={values.name || ''}
                     onChange={handleChange}
                     pattern={NAME_REGEX.source}
+                    title="Введите ваше имя"
                     minLength={2}
                     maxLength={30}
                 />
@@ -77,6 +78,7 @@ const Register = ({
                     value={values.email || ''}
                     onChange={handleChange}
                     pattern={EMAIL_REGEX.source}
+                    title="Введите адрес вашей электронной почты"
                 />
                 <span className="register__error">{errors.email || ''}</span>
                 <label className="register__label">Пароль</label>
@@ -91,6 +93,7 @@ const Register = ({
                     value={values.password || ''}
                     onChange={handleChange}
                     minLength={3}
+                    title="Введите пароль"
                 />
                 <span className="register__error">{errors.password || ''}</span>
 
